@@ -19,7 +19,7 @@
 #
 # Usage:
 #
-#   class { 'windows_firewall::exception':
+#   define { 'windows_firewall::exception':
 #     ensure       => present,
 #     direction    => 'in',
 #     action       => 'Allow',
@@ -31,7 +31,7 @@
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
 #   }
 #
-class windows_firewall::exception(
+define windows_firewall::exception(
   $ensure = 'present',
   $direction = '',
   $action = '',
@@ -39,16 +39,47 @@ class windows_firewall::exception(
   $protocol = '',
   $local_port = '',
   $display_name = '',
-  $key_name = '',
   $description = '',
+  $key_name = '',
 
 ) {
-    $reg_key = 'HKLM\SYSTEM\ControlSet001\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules'
+    validate_re($ensure,['^(present|absent)$'])
+    validate_slength($display_name,255)
+    validate_re($enabled,['^(yes|no)$'])
+    validate_re($protocol,['^(TCP|UDP)$'])
+    validate_re($local_port,['[0-9]{1,5}'])
+    validate_slength($key_name,255)
     
-    exec { "set rule ${display_name}":
-      command   => "& C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} protocol=${protocol} localport=${local_port}",
-      provider  => powershell,
-      logoutput => true,
-      unless    => "if (Get-Item -LiteralPath \'\\${reg_key}\' -ErrorAction SilentlyContinue).GetValue(\'${key_name}\')) { exit 1 }"
+    case $::operatingsystemversion {
+      'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
+        validate_slength($description,255)
+        validate_re($direction,['^(in|out)$'])
+        validate_re($action,['^(allow|block)$'])    
+      }
+      default: { }
     }
+    
+    if $ensure == 'present' {
+        $fw_action = 'add'
+    } else {
+        $fw_action = 'delete'
+    }
+    
+    if $::operatingsystemversion =~ /Windows Server 2003/ or $::operatingsystemversion =~ /Windows XP/ {
+        if $enabled == 'yes' {
+            $mode = 'ENABLE'
+        } else {
+            $mode = 'DISABLE'
+        }
+        exec { "set rule ${display_name}":
+          command   => "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} portopening name=\"${display_name}\" mode=${mode} protocol=${protocol} port=${local_port}",
+          provider  => windows,
+        }
+    } else {
+        exec { "set rule ${display_name}":
+          command   => "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} protocol=${protocol} localport=${local_port}",
+          provider  => windows,
+        }
+    }
+
 }

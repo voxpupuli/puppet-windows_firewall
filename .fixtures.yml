@@ -1,0 +1,8 @@
+fixtures:
+  repositories:
+    stdlib:  git://github.com/puppetlabs/puppetlabs-stdlib.git
+    registry: git://github.com/puppetlabs/puppetlabs-registry.git
+    powershell:  git://github.com/joshcooper/puppetlabs-powershell.git
+    win_facts:  git://github.com/liamjbennett/puppet-win_facts.git
+  symlinks:
+    windows_firewall: "#{source_dir}"
