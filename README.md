@@ -18,9 +18,9 @@ Tested against puppet versions 2.7.x and 3.x.x
 
 These modules will also get installed as a dependency for this module:
 
-puppetlabs/stdlib
-joshcooper/powershell
-liamjbennett/win_facts
+* puppetlabs/stdlib
+* joshcooper/powershell
+* liamjbennett/win_facts
 
 Please see the ModuleFile for further details.
 
