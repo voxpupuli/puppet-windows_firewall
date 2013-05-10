@@ -19,16 +19,30 @@
 #
 # Usage:
 #
-#   define { 'windows_firewall::exception':
+#  By protocol/port:
+#
+#   windows_firewall::exception { 'WINRM-HTTP-In-TCP':
 #     ensure       => present,
 #     direction    => 'in',
 #     action       => 'Allow',
 #     enabled      => 'yes',
 #     protocol     => 'TCP',
-#     port         => '5985',
-#     key_name     => 'WINRM-HTTP-In-TCP',
+#     local_port   => '5985',
+#     program      => undef,
 #     display_name => 'Windows Remote Management HTTP-In',
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
+#   }
+#
+#  By program path:
+#
+#   windows_firewall::exception { 'myapp':
+#     ensure       => present,
+#     direction    => 'in',
+#     action       => 'Allow',
+#     enabled      => 'yes',
+#     program      => 'C:\\myapp.exe',
+#     display_name => 'My App',
+#     description  => 'Inbound rule for My App',
 #   }
 #
 define windows_firewall::exception(
@@ -38,16 +52,28 @@ define windows_firewall::exception(
   $enabled = 'yes',
   $protocol = '',
   $local_port = '',
+  $program = undef,
   $display_name = '',
   $description = '',
-  $key_name = '',
+  $key_name = $name,
 
 ) {
+    # Check if we're allowing a program or port/protocol and validate accordingly
+    if $program == undef {
+      $fw_command = 'portopening'
+      $allow_context = "protocol=${protocol} localport=${local_port}"
+      validate_re($protocol,['^(TCP|UDP)$'])
+      validate_re($local_port,['[0-9]{1,5}'])
+    } else {
+      $fw_command = 'allowedprogram'
+      $allow_context = "program=\"${program}\""
+      validate_absolute_path($program)
+    }
+
+    # Validate common parameters
     validate_re($ensure,['^(present|absent)$'])
     validate_slength($display_name,255)
     validate_re($enabled,['^(yes|no)$'])
-    validate_re($protocol,['^(TCP|UDP)$'])
-    validate_re($local_port,['[0-9]{1,5}'])
     validate_slength($key_name,255)
 
     case $::operatingsystemversion {
@@ -72,12 +98,12 @@ define windows_firewall::exception(
             $mode = 'DISABLE'
         }
         exec { "set rule ${display_name}":
-          command   => "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} portopening name=\"${display_name}\" mode=${mode} protocol=${protocol} port=${local_port}",
+          command   => "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}",
           provider  => windows,
         }
     } else {
         exec { "set rule ${display_name}":
-          command   => "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} protocol=${protocol} localport=${local_port}",
+          command   => "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}",
           provider  => windows,
         }
     }
