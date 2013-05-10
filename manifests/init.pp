@@ -11,7 +11,7 @@
 #
 # Usage:
 #
-#   class { 'windows_firewall': 
+#   class { 'windows_firewall':
 #     ensure => 'running',
 #   }
 class windows_firewall (
@@ -19,16 +19,16 @@ class windows_firewall (
 ) {
 
     validate_re($ensure,['^(running|stopped)$'])
-    
+
     case $::operatingsystemversion {
         'Windows Server 2003','Windows Server 2003 R2','Windows XP': {
           $firewall_name = 'SharedAccess'
         }
         default: {
-          $firewall_name = 'MpsSvc' 
+          $firewall_name = 'MpsSvc'
         }
     }
-    
+
     case $ensure {
         'running': {
             $enabled = true
@@ -39,13 +39,13 @@ class windows_firewall (
             $enabled_data = '0'
         }
     }
-    
+
     service { 'windows_firewall':
       ensure => $ensure,
       name   => $firewall_name,
       enable => $enabled,
     }
-    
+
     registry_value { 'EnableFirewall':
       ensure => 'present',
       path   => 'HKLM\SYSTEM\ControlSet001\services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',

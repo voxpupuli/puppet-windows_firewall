@@ -49,22 +49,22 @@ define windows_firewall::exception(
     validate_re($protocol,['^(TCP|UDP)$'])
     validate_re($local_port,['[0-9]{1,5}'])
     validate_slength($key_name,255)
-    
+
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
         validate_slength($description,255)
         validate_re($direction,['^(in|out)$'])
-        validate_re($action,['^(allow|block)$'])    
+        validate_re($action,['^(allow|block)$'])
       }
       default: { }
     }
-    
+
     if $ensure == 'present' {
         $fw_action = 'add'
     } else {
         $fw_action = 'delete'
     }
-    
+
     if $::operatingsystemversion =~ /Windows Server 2003/ or $::operatingsystemversion =~ /Windows XP/ {
         if $enabled == 'yes' {
             $mode = 'ENABLE'
