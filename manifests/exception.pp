@@ -86,18 +86,18 @@ define windows_firewall::exception(
     }
 
     # Set command to check for existing rules
-    $unless = undef
-    $onlyif = undef
     $check_rule_existance= "C:\\Windows\\System32\\netsh.exe advfirewall firewall show rule name=\"${display_name}\""
 
     # Use unless for exec if we want the rule to exist
     if $ensure == 'present' {
         $fw_action = 'add'
         $unless = $check_rule_existance
+        $onlyif = undef
     } else {
     # Or onlyif if we expect it to be absent
         $fw_action = 'delete'
         $onlyif = $check_rule_existance
+        $unless = undef
     }
 
 
