@@ -85,27 +85,39 @@ define windows_firewall::exception(
       default: { }
     }
 
+    # Set command to check for existing rules
+    $unless = undef
+    $onlyif = undef
+    $check_rule_existance= "C:\\Windows\\System32\\netsh.exe advfirewall firewall show rule name=\"${display_name}\""
+
+    # Use unless for exec if we want the rule to exist
     if $ensure == 'present' {
         $fw_action = 'add'
+        $unless = $check_rule_existance
     } else {
+    # Or onlyif if we expect it to be absent
         $fw_action = 'delete'
+        $onlyif = $check_rule_existance
     }
 
-    if $::operatingsystemversion =~ /Windows Server 2003/ or $::operatingsystemversion =~ /Windows XP/ {
-        if $enabled == 'yes' {
-            $mode = 'ENABLE'
-        } else {
-            $mode = 'DISABLE'
+
+    case $::operatingsystemversion {
+      'Windows Server 2003', 'Windows XP': {
+        $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
+        $mode = $enabled ? {
+          'yes' => 'ENABLE',
+          'no'  => 'DISABLE',
         }
-        exec { "set rule ${display_name}":
-          command   => "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}",
-          provider  => windows,
-        }
-    } else {
-        exec { "set rule ${display_name}":
-          command   => "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}",
-          provider  => windows,
-        }
+      }
+      default: {
+        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}"
+      }
     }
 
+    exec { "set rule ${display_name}":
+      command  => $netsh_command,
+      provider => windows,
+      onlyif   => $onlyif,
+      unless   => $unless,
+    }
 }
