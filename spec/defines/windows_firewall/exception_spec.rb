@@ -49,8 +49,8 @@ describe 'windows_firewall::exception', :type => :define do
      end
      let :title do 'Windows Remote Management' end
      let :params do
-       { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => 'C:\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
+       { :ensure => 'present', :direction => 'in', :action => 'allow',
+         :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -69,8 +69,8 @@ describe 'windows_firewall::exception', :type => :define do
      end
      let :title do 'Windows Remote Management' end
      let :params do
-       { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+       { :ensure => 'present', :direction => 'in', :action => 'allow',
+         :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -129,14 +129,14 @@ describe 'windows_firewall::exception', :type => :define do
      end
      let :title do 'Windows Remote Management' end
      let :params do
-       { :ensure => 'absent', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+       { :ensure => 'absent', :direction => 'in', :action => 'allow',
+         :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
 
      it { should contain_exec('set rule Windows Remote Management').with(
-       'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete portopening name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
+       'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
        'provider' => 'windows'
      ) }
     end
@@ -149,8 +149,8 @@ describe 'windows_firewall::exception', :type => :define do
       end
       let :title do 'Windows Remote Management' end
       let :params do
-        { :ensure => 'absent', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+        { :ensure => 'absent', :direction => 'in', :action => 'allow',
+          :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
