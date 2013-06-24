@@ -116,7 +116,7 @@ define windows_firewall::exception(
         $mode = $enabled ? {
           'yes' => 'ENABLE',
           'no'  => 'DISABLE',
-        },
+        }
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
