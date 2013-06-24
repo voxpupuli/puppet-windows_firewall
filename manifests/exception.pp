@@ -102,7 +102,7 @@ define windows_firewall::exception(
 
 
     case $::operatingsystemversion {
-      'Windows Server 2003', 'Windows XP': {
+      /Windows Server 2003/, 'Windows XP': {
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
         $mode = $enabled ? {
           'yes' => 'ENABLE',
