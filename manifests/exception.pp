@@ -58,10 +58,20 @@ define windows_firewall::exception(
   $key_name = $name,
 
 ) {
+
     # Check if we're allowing a program or port/protocol and validate accordingly
     if $program == undef {
+      #check whether to use 'localport', or just 'port' depending on OS
+      case $::operatingsystemversion {
+        /Windows Server 2003/, /Windows XP/: {
+          $port_param = 'port'
+        }
+        default: {
+          $port_param = 'localport'
+        }
+      }
       $fw_command = 'portopening'
-      $allow_context = "protocol=${protocol} localport=${local_port}"
+      $allow_context = "protocol=${protocol} ${port_param}=${local_port}"
       validate_re($protocol,['^(TCP|UDP)$'])
       validate_re($local_port,['[0-9]{1,5}'])
     } else {
