@@ -1,4 +1,7 @@
-Puppet module for managing the [Windows Firewall]().
+#Windows Firewall module for Puppet
+
+#Overview
+Puppet module to manage the Microsoft Windows Firewall
 
 This module is also available on the [Puppet Forge](https://forge.puppetlabs.com/liamjbennett/windows_firewall)
 
@@ -7,7 +10,18 @@ Status](https://secure.travis-ci.org/liamjbennett/puppet-windows_firewall.png)](
 [![Dependency
 Status](https://gemnasium.com/liamjbennett/puppet-windows_firewall.png)](http://gemnasium.com/liamjbennett/puppet-windows_firewall)
 
-## Configuration ##
+##Module Description
+
+##Setup
+
+####Setup Requirements
+
+
+
+##Usage
+First please read the [Wiki](https://github.com/liamjbennett/puppet-windows_firewall/wiki) regarding how we assume your network
+share should be configured. Then installing office is as simple as:
+
 The windows_firewall class has some defaults that can be overridden, for instance if you wanted to disable to windows firewall
 
 	class { 'windows_firewall': ensure => 'stopped' }
@@ -36,15 +50,16 @@ The windows_firewall class has some defaults that can be overridden, for instanc
      description  => 'Inbound rule for My App',
    }
 
-## Requirements ##
+##Development
+Copyright (C) 2013 Liam Bennett - <liamjbennett@gmail.com> <br/>
+Distributed under the terms of the Apache 2 license - see LICENSE file for details. <br/>
+Further contributions and testing reports are extremely welcome - please submit a pull request or issue on [GitHub](https://github.com/liamjbennett/puppet-windows_firewall) <br/>
+Please read the [Wiki](https://github.com/liamjbennett/puppet-windows_firewall/wiki) as there is a lot of useful information and links that will help you understand this module <br/>
 
-Tested against puppet versions 2.7.x and 3.x.x
+##Release Notes
 
-These modules will also get installed as a dependency for this module:
+__0.0.2__ <br/>
+Some bug fixes and additional testing
 
-* puppetlabs/stdlib
-* joshcooper/powershell
-* liamjbennett/win_facts
-
-Please see the ModuleFile for further details.
-
+__0.0.1__ <br/>
+The initial version
