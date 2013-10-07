@@ -57,6 +57,8 @@ Further contributions and testing reports are extremely welcome - please submit 
 Please read the [Wiki](https://github.com/liamjbennett/puppet-windows_firewall/wiki) as there is a lot of useful information and links that will help you understand this module <br/>
 
 ##Release Notes
+__0.0.3__ <br/>
+Add program rule support, various other fixes
 
 __0.0.2__ <br/>
 Some bug fixes and additional testing
