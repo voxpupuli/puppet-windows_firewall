@@ -1,26 +1,25 @@
-#Windows Firewall module for Puppet
-
-#Overview
-Puppet module to manage the Microsoft Windows Firewall
-
-This module is also available on the [Puppet Forge](https://forge.puppetlabs.com/liamjbennett/windows_firewall)
-
+#windows_firewall
 [![Build
 Status](https://secure.travis-ci.org/liamjbennett/puppet-windows_firewall.png)](http://travis-ci.org/liamjbennett/puppet-windows_firewall)
 [![Dependency
 Status](https://gemnasium.com/liamjbennett/puppet-windows_firewall.png)](http://gemnasium.com/liamjbennett/puppet-windows_firewall)
 
+####Table of Contents
+
+##Overview
+Puppet module to manage the Microsoft Windows Firewall
+
 ##Module Description
 
 ##Setup
 
-####Setup Requirements
+**What Apache affects:**
 
+*
+*
+*
 
-
-##Usage
-First please read the [Wiki](https://github.com/liamjbennett/puppet-windows_firewall/wiki) regarding how we assume your network
-share should be configured. Then installing office is as simple as:
+###Beginning with Apache
 
 The windows_firewall class has some defaults that can be overridden, for instance if you wanted to disable to windows firewall
 
@@ -50,18 +49,52 @@ The windows_firewall class has some defaults that can be overridden, for instanc
      description  => 'Inbound rule for My App',
    }
 
+##Usage
+
+###Classes and Defined Types
+
+...
+
+####Class: `windows_firewall`
+
+...
+
+####Defined Type: `windows_firewall::exception`
+
+...
+
+##Limitations
+
+...
+
 ##Development
-Copyright (C) 2013 Liam Bennett - <liamjbennett@gmail.com> <br/>
-Distributed under the terms of the Apache 2 license - see LICENSE file for details. <br/>
-Further contributions and testing reports are extremely welcome - please submit a pull request or issue on [GitHub](https://github.com/liamjbennett/puppet-windows_firewall) <br/>
-Please read the [Wiki](https://github.com/liamjbennett/puppet-windows_firewall/wiki) as there is a lot of useful information and links that will help you understand this module <br/>
 
-##Release Notes
-__0.0.3__ <br/>
-Add program rule support, various other fixes
+### Overview
 
-__0.0.2__ <br/>
-Some bug fixes and additional testing
+...
 
-__0.0.1__ <br/>
-The initial version
+### Running tests
+
+This project contains tests for [rspec-puppet](http://rspec-puppet.com/) to verify functionality. For in-depth information please see their respective documentation.
+
+Quickstart:
+
+    gem install bundler
+    bundle install
+    bundle exec rake spec
+
+##Copyright and License
+
+Copyright (C) 2013 Liam Bennett - liamjbennett@gmail.com 
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
