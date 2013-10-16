@@ -6,6 +6,22 @@ Status](https://gemnasium.com/liamjbennett/puppet-windows_firewall.png)](http://
 
 ####Table of Contents
 
+1. [Overview - What is the windows_firewall module?](#overview)
+2. [Module Description - What does the module do?](#module-description)
+3. [Setup - The basics of getting started with windows_firewall](#setup)
+    * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
+    * [Configuring an exception - Basic options for for getting started](#configure-an-exception)
+4. [Usage - The classes, defined types, and their parameters available for configuration](#usage)
+    * [Classes and Defined Types](#classes-and-defined-types)
+        * [Class: windows_firewall](#class-windows_firewall)
+        * [Defined Type: windows_firewall::exception](#defined-type-exception)
+5. [Implementation - An under-the-hood peek at what the module is doing](#implementation)
+    * [Classes and Defined Types](#classes-and-defined-types)
+    * [Templates](#templates)
+6. [Limitations - OS compatibility, etc.](#limitations)
+7. [Development - Guide for contributing to the module](#development)
+8. [Release Notes - Notes on the most recent updates to the module](#release-notes)
+
 ##Overview
 Puppet module to manage the Microsoft Windows Firewall
 
@@ -25,7 +41,7 @@ The windows_firewall class has some defaults that can be overridden, for instanc
 
 	class { 'windows_firewall': ensure => 'stopped' }
 
-## Allow port/protocol example ##
+###Configuring an exception
     windows_firewall::exception { 'WINRM':
       ensure       => present,
       direction    => 'in',
@@ -38,16 +54,15 @@ The windows_firewall class has some defaults that can be overridden, for instanc
       description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
     }
 
-## Allow program example ##
-   windows_firewall::exception { 'myapp':
-     ensure       => present,
-     direction    => 'in',
-     action       => 'Allow',
-     enabled      => 'yes',
-     program      => 'C:\\myapp.exe',
-     display_name => 'My App',
-     description  => 'Inbound rule for My App',
-   }
+    windows_firewall::exception { 'myapp':
+      ensure       => present,
+      direction    => 'in',
+      action       => 'Allow',
+      enabled      => 'yes',
+      program      => 'C:\\myapp.exe',
+      display_name => 'My App',
+      description  => 'Inbound rule for My App',
+    }
 
 ##Usage
 
