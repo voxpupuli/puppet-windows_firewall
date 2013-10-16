@@ -13,13 +13,13 @@ Puppet module to manage the Microsoft Windows Firewall
 
 ##Setup
 
-**What Apache affects:**
+**What windows_firewall affects:**
 
 *
 *
 *
 
-###Beginning with Apache
+###Beginning with windows_firewall
 
 The windows_firewall class has some defaults that can be overridden, for instance if you wanted to disable to windows firewall
 
