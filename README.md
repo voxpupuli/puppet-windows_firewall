@@ -56,7 +56,7 @@ Once the windows firewall is managed you may then want to start managing the rul
       action       => 'Allow',
       enabled      => 'yes',
       protocol     => 'TCP',
-      port         => '5985',
+      local_port   => '5985',
       display_name => 'Windows Remote Management HTTP-In',
       description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
     }
@@ -90,7 +90,7 @@ You can either define an exception for a specific port:
         action       => 'Allow',
         enabled      => 'yes',
         protocol     => 'TCP',
-        port         => '5985',
+        local_port   => '5985',
         display_name => 'Windows Remote Management HTTP-In',
         description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
     }
