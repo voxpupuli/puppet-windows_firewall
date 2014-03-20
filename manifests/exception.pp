@@ -8,6 +8,7 @@
 #   [*action]           - Specifies what Windows Firewall with Advanced Security does to filter network packets that match the criteria specified in this rule.
 #   [*enabled]          - Specifies whether the rule is currently enabled.
 #   [*protocol]         - Specifies that network packets with a matching IP protocol match this rule.
+#   [*remoteip*]	- Specifies that network packets with a matching remote IP address match this rule.
 #   [*local_port]       - Specifies that network packets with matching IP port numbers matched by this rule.
 #   [*display_name]     - Specifies the rule name assigned to the rule that you want to display
 #   [*description]      - Provides information about the firewall rule.
@@ -26,6 +27,7 @@
 #     action       => 'Allow',
 #     enabled      => 'yes',
 #     protocol     => 'TCP',
+#     remoteip	   => '10.0.0.0/8',
 #     local_port   => '5985',
 #     program      => undef,
 #     display_name => 'Windows Remote Management HTTP-In',
@@ -50,6 +52,7 @@ define windows_firewall::exception(
   $action = '',
   $enabled = 'yes',
   $protocol = '',
+  $remoteip = 'any',
   $local_port = '',
   $program = undef,
   $display_name = '',
@@ -69,7 +72,7 @@ define windows_firewall::exception(
         }
       }
       $fw_command = 'portopening'
-      $allow_context = "protocol=${protocol} ${port_param}=${local_port}"
+      $allow_context = "protocol=${protocol} remoteip=${remoteip} ${port_param}=${local_port}"
       validate_re($protocol,['^(TCP|UDP)$'])
       validate_re($local_port,['[0-9]{1,5}'])
     } else {
@@ -82,6 +85,8 @@ define windows_firewall::exception(
     validate_re($ensure,['^(present|absent)$'])
     validate_slength($display_name,255)
     validate_re($enabled,['^(yes|no)$'])
+    if !(is_ip_address($remoteip) or $remoteip == 'any') { fail('Not a valid remoteip') }
+
 
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
