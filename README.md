@@ -56,6 +56,7 @@ Once the windows firewall is managed you may then want to start managing the rul
       action       => 'Allow',
       enabled      => 'yes',
       protocol     => 'TCP',
+      remoteip     => '10.0.0.0/8',
       local_port   => '5985',
       display_name => 'Windows Remote Management HTTP-In',
       description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
@@ -90,6 +91,7 @@ You can either define an exception for a specific port:
         action       => 'Allow',
         enabled      => 'yes',
         protocol     => 'TCP',
+        remoteip     => 'any',
         local_port   => '5985',
         display_name => 'Windows Remote Management HTTP-In',
         description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
@@ -103,6 +105,7 @@ Or you can define an exception for a specific program:
         action       => 'Allow',
         enabled      => 'yes',
         program      => 'C:\\myapp.exe',
+        remoteip     => 'any',
         display_name => 'My App',
         description  => 'Inbound rule for My App',
     }
@@ -132,6 +135,9 @@ Sets the protocol to be included in the exception rule, either: 'TCP' or 'UDP'.
 
 #####`local_port`
 Defines the port to be included in the exception for port-based exception rules.
+
+#####`remoteip`
+Defines the remote IP address to be included in the exception.
 
 #####`program`
 Defines the full path to the program to be included in the exception for program-based exception rules.
