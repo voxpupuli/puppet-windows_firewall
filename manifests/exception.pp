@@ -66,13 +66,18 @@ define windows_firewall::exception(
       case $::operatingsystemversion {
         /Windows Server 2003/, /Windows XP/: {
           $port_param = 'port'
+	  $remoteip_param = 'addresses'
+	  if !(is_ip_address($remoteip)) { fail('Not a valid remoteip') }
+          $allow_context = "scope=CUSTOM protocol=${protocol} ${remoteip_param}=${remoteip} ${port_param}=${local_port}"
         }
         default: {
           $port_param = 'localport'
+	  $remoteip_param = 'remoteip'
+	  if !(is_ip_address($remoteip) or $remoteip == 'any') { fail('Not a valid remoteip') }
+          $allow_context = "protocol=${protocol} ${remoteip_param}=${remoteip} ${port_param}=${local_port}"
         }
       }
       $fw_command = 'portopening'
-      $allow_context = "protocol=${protocol} remoteip=${remoteip} ${port_param}=${local_port}"
       validate_re($protocol,['^(TCP|UDP)$'])
       validate_re($local_port,['[0-9]{1,5}'])
     } else {
@@ -85,8 +90,6 @@ define windows_firewall::exception(
     validate_re($ensure,['^(present|absent)$'])
     validate_slength($display_name,255)
     validate_re($enabled,['^(yes|no)$'])
-    if !(is_ip_address($remoteip) or $remoteip == 'any') { fail('Not a valid remoteip') }
-
 
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
