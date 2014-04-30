@@ -95,18 +95,19 @@ define windows_firewall::exception(
     # Set command to check for existing rules
     $check_rule_existance= "C:\\Windows\\System32\\netsh.exe advfirewall firewall show rule name=\"${display_name}\""
 
-    # Use unless for exec if we want the rule to exist
+    # Use unless for exec if we want the rule to exist, include a description
     if $ensure == 'present' {
         $fw_action = 'add'
         $unless = $check_rule_existance
         $onlyif = undef
+        $fw_description = "description=\"${description}\""
     } else {
-    # Or onlyif if we expect it to be absent
+    # Or onlyif if we expect it to be absent; no description argument
         $fw_action = 'delete'
         $onlyif = $check_rule_existance
         $unless = undef
+        $fw_description = ''
     }
-
 
     case $::operatingsystemversion {
       /Windows Server 2003/, /Windows XP/: {
@@ -117,7 +118,7 @@ define windows_firewall::exception(
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
-        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}"
+        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${enabled} ${allow_context}"
       }
     }
 
