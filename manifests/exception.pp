@@ -51,6 +51,7 @@ define windows_firewall::exception(
   $enabled = 'yes',
   $protocol = '',
   $local_port = '',
+  $remote_ip = '',
   $program = undef,
   $display_name = '',
   $description = '',
@@ -117,7 +118,7 @@ define windows_firewall::exception(
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
-        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}"
+        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}" remoteip=\"${remote_ip}\"
       }
     }
 
