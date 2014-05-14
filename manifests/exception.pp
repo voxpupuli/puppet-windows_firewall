@@ -28,7 +28,7 @@
 #     enabled      => 'yes',
 #     protocol     => 'TCP',
 #     local_port   => '5985',
-#     remote_ip    => '10.0.0.1, 10.0.0.2'
+#     remote_ip    => '10.0.0.1,10.0.0.2'
 #     program      => undef,
 #     display_name => 'Windows Remote Management HTTP-In',
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
