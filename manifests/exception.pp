@@ -8,6 +8,7 @@
 #   [*action]           - Specifies what Windows Firewall with Advanced Security does to filter network packets that match the criteria specified in this rule.
 #   [*enabled]          - Specifies whether the rule is currently enabled.
 #   [*protocol]         - Specifies that network packets with a matching IP protocol match this rule.
+#   [*remote_ip]        - Specifies remote hosts that can use this rule.
 #   [*local_port]       - Specifies that network packets with matching IP port numbers matched by this rule.
 #   [*display_name]     - Specifies the rule name assigned to the rule that you want to display
 #   [*description]      - Provides information about the firewall rule.
@@ -27,6 +28,7 @@
 #     enabled      => 'yes',
 #     protocol     => 'TCP',
 #     local_port   => '5985',
+#     remote_ip    => '10.0.0.1, 10.0.0.2'
 #     program      => undef,
 #     display_name => 'Windows Remote Management HTTP-In',
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
