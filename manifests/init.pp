@@ -48,7 +48,7 @@ class windows_firewall (
 
     registry_value { 'EnableFirewall':
       ensure => 'present',
-      path   => 'HKLM\SYSTEM\ControlSet001\services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
+      path   => '32:HKLM\SYSTEM\ControlSet001\services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
       type   => 'dword',
       data   => $enabled_data
     }
