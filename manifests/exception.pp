@@ -54,6 +54,7 @@ define windows_firewall::exception(
   $program = undef,
   $display_name = '',
   $description = '',
+  $block_edge_traversal = 'no',
 
 ) {
 
@@ -82,6 +83,7 @@ define windows_firewall::exception(
     validate_re($ensure,['^(present|absent)$'])
     validate_slength($display_name,255)
     validate_re($enabled,['^(yes|no)$'])
+	validate_re($block_edge_traversal,['^(yes|no)$'])
 
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
@@ -117,7 +119,7 @@ define windows_firewall::exception(
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
-        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} ${allow_context}"
+        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" description=\"${description}\" dir=${direction} action=${action} enable=${enabled} edge=${block_edge_traversal} ${allow_context}"
       }
     }
 
