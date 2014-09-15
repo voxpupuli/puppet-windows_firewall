@@ -73,9 +73,6 @@ define windows_firewall::exception(
       validate_re($protocol,['^(TCP|UDP|ICMPv(4|6))$'])
       if $protocol =~ /ICMPv(4|6)/ {
         $allow_context = "protocol=${protocol}"
-        if $local_port != '' {
-          notify{"Setting for parameter local_port is ignored because of protocal ${protocol}":}
-        }
       } else {
         $allow_context = "protocol=${protocol} ${port_param}=${local_port}"
         validate_re($local_port,['[0-9]{1,5}'])
