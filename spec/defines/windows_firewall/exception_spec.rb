@@ -10,7 +10,7 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+         :protocol => 'TCP', :local_port => '5985',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -30,7 +30,7 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+         :protocol => 'TCP', :local_port => '5985',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -50,7 +50,7 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'present', :direction => 'in', :action => 'allow',
-         :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
+         :enabled => 'yes', :program => 'C:\\foo.exe',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -70,7 +70,7 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'present', :direction => 'in', :action => 'allow',
-         :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
+         :enabled => 'yes', :program => 'C:\\foo.exe',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -90,7 +90,7 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'absent', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+         :protocol => 'TCP', :local_port => '5985',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -110,7 +110,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'absent', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -130,7 +130,7 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'absent', :direction => 'in', :action => 'allow',
-         :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
+         :enabled => 'yes', :program => 'C:\\foo.exe',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
@@ -150,7 +150,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'absent', :direction => 'in', :action => 'allow',
-          :enabled => 'yes', :program => 'C:\\foo.exe', :key_name => 'WINRM-HTTP-In-TCP',
+          :enabled => 'yes', :program => 'C:\\foo.exe',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -170,7 +170,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'fubar', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -198,7 +198,7 @@ describe 'windows_firewall::exception', :type => :define do
 
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => $long_display_name, :description => 'Inbound rule for WinRM'
         }
       end
@@ -219,7 +219,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'fubar',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -240,7 +240,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'fubar', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'fubar', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -261,35 +261,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => 'fubar', :key_name => 'WINRM-HTTP-In-TCP',
-          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
-        }
-      end
-
-      it do
-        expect {
-          should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
-      end
-    end
-  end
-
-  ['Windows Server 2012', 'Windows Server 2008','Windows Server 2008 R2','Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8','Windows 7','Windows Vista', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, key_name => >255" do
-      let :facts do
-        { :operatingsystemversion => 'Windows Server 2008 R2' }
-      end
-      let :title do 'Windows Remote Management' end
-
-      $long_key_name = <<-long
-        kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
-        1RTgW7xawfeDOZOZh2CbmV7zPOqbF8rXxFwxtugUBIpxmpQ8TCk93wF04RicJidwhhiKQz5YXwTbMbREXtQz25mhkPxOI6cyA9QJ
-        kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t
-      long
-
-      let :params do
-        { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => $long_key_name,
+          :protocol => 'TCP', :local_port => 'fubar',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -317,7 +289,7 @@ describe 'windows_firewall::exception', :type => :define do
 
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => $long_description }
       end
 
@@ -344,7 +316,7 @@ describe 'windows_firewall::exception', :type => :define do
 
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => $long_description }
       end
 
@@ -364,7 +336,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'fubar', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -385,7 +357,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'fubar', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -406,7 +378,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'fubar', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
@@ -427,7 +399,7 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'present', :direction => 'in', :action => 'fubar', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985', :key_name => 'WINRM-HTTP-In-TCP',
+          :protocol => 'TCP', :local_port => '5985',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
