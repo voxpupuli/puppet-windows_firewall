@@ -36,7 +36,7 @@ describe 'windows_firewall::exception', :type => :define do
      end
 
      it { should contain_exec('set rule Windows Remote Management').with(
-       'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes protocol=TCP localport=5985',
+       'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteip=""',
        'provider' => 'windows'
      ) }
     end
@@ -76,7 +76,7 @@ describe 'windows_firewall::exception', :type => :define do
      end
 
      it { should contain_exec('set rule Windows Remote Management').with(
-       'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes program="C:\\foo.exe"',
+       'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
        'provider' => 'windows'
      ) }
     end
@@ -116,7 +116,7 @@ describe 'windows_firewall::exception', :type => :define do
       end
 
       it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes protocol=TCP localport=5985',
+        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteip=""',
         'provider' => 'windows'
       ) }
     end
@@ -156,7 +156,7 @@ describe 'windows_firewall::exception', :type => :define do
       end
 
       it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes program="C:\\foo.exe"',
+        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
         'provider' => 'windows'
       ) }
     end

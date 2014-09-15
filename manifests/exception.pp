@@ -90,7 +90,7 @@ define windows_firewall::exception(
     validate_re($ensure,['^(present|absent)$'])
     validate_slength($display_name,255)
     validate_re($enabled,['^(yes|no)$'])
-	  validate_re($allow_edge_traversal,['^(yes|no)$'])
+    validate_re($allow_edge_traversal,['^(yes|no)$'])
 
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
@@ -125,11 +125,12 @@ define windows_firewall::exception(
           'no'  => 'DISABLE',
         }
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
-       }
-
+      }
       default: {
         $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${enabled} edge=${allow_edge_traversal} ${allow_context} remoteip=\"${remote_ip}\""
       }
+    }
+
     exec { "set rule ${display_name}":
       command  => $netsh_command,
       provider => windows,
