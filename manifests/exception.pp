@@ -1,25 +1,51 @@
-# Class windows_firewall::exception
+# Author::    Liam Bennett (mailto:lbennett@opentable.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Define: windows_firewall::exception
 #
-# This class manages exceptions in the windows firewall
+# This defined type manages exceptions in the windows firewall
 #
-# Parameters:
-#   [*ensure*]          - Control the existence of a rule
-#   [*direction]        - Specifies whether this rule matches inbound or outbound network traffic.
-#   [*action]           - Specifies what Windows Firewall with Advanced Security does to filter network packets that match the criteria specified in this rule.
-#   [*enabled]          - Specifies whether the rule is currently enabled.
-#   [*protocol]         - Specifies that network packets with a matching IP protocol match this rule.
-#   [*remote_ip]        - Specifies remote hosts that can use this rule.
-#   [*local_port]       - Specifies that network packets with matching IP port numbers matched by this rule.
-#   [*display_name]     - Specifies the rule name assigned to the rule that you want to display
-#   [*description]      - Provides information about the firewall rule.
+# === Requirements/Dependencies
 #
-# Actions:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
 #
-# Requires:
+# === Parameters
 #
-# Usage:
+# [*ensure*]
+# Control the existence of a rule
 #
-#  By protocol/port:
+# [*direction*]
+# Specifies whether this rule matches inbound or outbound network traffic.
+#
+# [*action*]
+# Specifies what Windows Firewall with Advanced Security does to filter network packets that match the criteria specified in this rule.
+#
+# [*enabled*]
+# Specifies whether the rule is currently enabled.
+#
+# [*protocol*]
+# Specifies that network packets with a matching IP protocol match this rule.
+#
+# [*remote_ip*]
+# Specifies remote hosts that can use this rule.
+#
+# [*local_port*]
+# Specifies that network packets with matching IP port numbers matched by this rule.
+#
+# [*display_name*]
+# Specifies the rule name assigned to the rule that you want to display
+#
+# [*description*]
+# Provides information about the firewall rule.
+#
+# [*allow_edge_traversal*]
+# Specifies that the traffic for this exception traverses an edge device
+#
+# === Examples
+#
+#  Exception for protocol/port:
 #
 #   windows_firewall::exception { 'WINRM-HTTP-In-TCP':
 #     ensure       => present,
@@ -34,7 +60,7 @@
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
 #   }
 #
-#  By program path:
+#  Exception for program path:
 #
 #   windows_firewall::exception { 'myapp':
 #     ensure       => present,

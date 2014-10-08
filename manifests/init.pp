@@ -1,19 +1,29 @@
-# Class windows_firewall
+# Author::    Liam Bennett (mailto:lbennett@opentable.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Class: windows_firewall
 #
-# This class manages the windows firewall
+# Module to manage the windows firewall and it's configured exceptions
 #
-# Parameters:
-#   [*ensure*]          - Control the state of the windows firewall
+# === Requirements/Dependencies
 #
-# Actions:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
 #
-# Requires:
+# === Parameters
 #
-# Usage:
+# [*ensure*]
+# Control the state of the windows firewall application
+#
+# === Examples
+#
+# To ensure that windows_firwall is running:
 #
 #   class { 'windows_firewall':
 #     ensure => 'running',
 #   }
+#
 class windows_firewall (
     $ensure = 'running'
 ) {
