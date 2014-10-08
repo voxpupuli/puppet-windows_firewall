@@ -1,4 +1,4 @@
-# Author::    Liam Bennett (mailto:lbennett@opentable.com)
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
 # License::   MIT
 
