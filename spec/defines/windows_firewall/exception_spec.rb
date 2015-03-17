@@ -323,7 +323,7 @@ describe 'windows_firewall::exception', :type => :define do
       it do
         expect {
           should contain_exec('set rule Windows Remote Management')
-        }.not_to raise_error(Puppet::Error)
+        }.not_to raise_error
       end
     end
   end
@@ -365,7 +365,7 @@ describe 'windows_firewall::exception', :type => :define do
       it do
         expect {
           should contain_exec('set rule Windows Remote Management')
-        }.not_to raise_error(Puppet::Error)
+        }.not_to raise_error
       end
     end
   end
@@ -407,7 +407,7 @@ describe 'windows_firewall::exception', :type => :define do
       it do
         expect {
           should contain_exec('set rule Windows Remote Management')
-        }.not_to raise_error(Puppet::Error)
+        }.not_to raise_error
       end
     end
   end

@@ -21,7 +21,7 @@
 ##Overview
 This is a module that will manage the Microsoft Windows Firewall and it's exceptions.
 
-[![Build Status](https://secure.travis-ci.org/liamjbennett/puppet-windows_firewall.png)](http://travis-ci.org/liamjbennett/puppet-windows_firewall)
+[![Build Status](https://secure.travis-ci.org/puppet-community/puppet-windows_firewall.png)](http://travis-ci.org/puppet-community/puppet-windows_firewall)
 
 ##Module Description
 
@@ -112,7 +112,7 @@ Specifies that the traffic for this exception traverses an edge device
 ####Public Types:
 * [`windows_firewall::exception`] Manages the configuration of firewall exceptions
 
-#Limitations
+##Limitations
 
 This module is tested on the following platforms:
 
