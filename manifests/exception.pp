@@ -153,7 +153,11 @@ define windows_firewall::exception(
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
-        $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${enabled} edge=${allow_edge_traversal} ${allow_context} remoteip=\"${remote_ip}\""
+        if $fw_action == 'delete' and $program == undef {
+          $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
+        } else {
+          $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${enabled} edge=${allow_edge_traversal} ${allow_context} remoteip=\"${remote_ip}\""
+        }
       }
     }
 
