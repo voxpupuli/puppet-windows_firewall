@@ -32,7 +32,10 @@
 # Specifies remote hosts that can use this rule.
 #
 # [*local_port*]
-# Specifies that network packets with matching IP port numbers matched by this rule.
+# Specifies that network packets with matching local IP port numbers matched by this rule.
+#
+# [*remote_port*]
+# Specifies that network packets with matching remote IP port numbers matched by this rule.
 #
 # [*display_name*]
 # Specifies the rule name assigned to the rule that you want to display
@@ -54,6 +57,7 @@
 #     enabled      => 'yes',
 #     protocol     => 'TCP',
 #     local_port   => '5985',
+#     remote_port  => 'any',
 #     remote_ip    => '10.0.0.1,10.0.0.2'
 #     program      => undef,
 #     display_name => 'Windows Remote Management HTTP-In',
@@ -79,6 +83,7 @@ define windows_firewall::exception(
   $enabled = 'yes',
   $protocol = '',
   $local_port = '',
+  $remote_port = '',
   $remote_ip = '',
   $program = undef,
   $display_name = '',
@@ -92,10 +97,14 @@ define windows_firewall::exception(
       #check whether to use 'localport', or just 'port' depending on OS
       case $::operatingsystemversion {
         /Windows Server 2003/, /Windows XP/: {
-          $port_param = 'port'
+          $local_port_param = 'port'
+    unless empty($remote_port) {
+            fail "Sorry, :remote_port param is not supported on  ${::operatingsystemversion}"
+          }
         }
         default: {
-          $port_param = 'localport'
+          $local_port_param  = 'localport'
+          $remote_port_param = 'remoteport'
         }
       }
       $fw_command = 'portopening'
@@ -103,8 +112,19 @@ define windows_firewall::exception(
       if $protocol =~ /ICMPv(4|6)/ {
         $allow_context = "protocol=${protocol}"
       } else {
-        $allow_context = "protocol=${protocol} ${port_param}=${local_port}"
-        validate_re($local_port,['any|[0-9]{1,5}'])
+        if empty($local_port) {
+          $local_port_cmd = ''
+        } else {
+          validate_re($local_port,['any|[0-9]{1,5}'])
+          $local_port_cmd = "${local_port_param}=${local_port}"
+        }
+        if empty($remote_port) {
+          $remote_port_cmd = ''
+        } else {
+          validate_re($remote_port,['any|[0-9]{1,5}'])
+          $remote_port_cmd = " ${remote_port_param}=${remote_port}"
+        }
+        $allow_context = "protocol=${protocol} ${local_port_cmd}${remote_port_cmd}"
       }
     } else {
       $fw_command = 'allowedprogram'
@@ -168,3 +188,4 @@ define windows_firewall::exception(
       unless   => $unless,
     }
 }
+

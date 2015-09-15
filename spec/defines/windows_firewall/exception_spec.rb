@@ -30,13 +30,13 @@ describe 'windows_firewall::exception', :type => :define do
      let :title do 'Windows Remote Management' end
      let :params do
        { :ensure => 'present', :direction => 'in', :action => 'allow', :enabled => 'yes',
-         :protocol => 'TCP', :local_port => '5985',
+         :protocol => 'TCP', :local_port => '5985', :remote_port => 'any',
          :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
        }
      end
 
      it { should contain_exec('set rule Windows Remote Management').with(
-       'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteip=""',
+       'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip=""',
        'provider' => 'windows'
      ) }
     end
@@ -110,13 +110,13 @@ describe 'windows_firewall::exception', :type => :define do
       let :title do 'Windows Remote Management' end
       let :params do
         { :ensure => 'absent', :direction => 'in', :action => 'allow', :enabled => 'yes',
-          :protocol => 'TCP', :local_port => '5985',
+          :protocol => 'TCP', :local_port => '5985', :remote_port => 'any',
           :display_name => 'Windows Remote Management', :description => 'Inbound rule for WinRM'
         }
       end
 
       it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteip=""',
+        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteport=any remoteip=""',
         'provider' => 'windows'
       ) }
     end
