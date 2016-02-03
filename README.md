@@ -50,6 +50,7 @@ Once the windows firewall is managed you may then want to start managing the rul
       enabled      => 'yes',
       protocol     => 'TCP',
       local_port   => '5985',
+      remote_port  => 'any',
       display_name => 'Windows Remote Management HTTP-In',
       description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
     }
@@ -85,7 +86,10 @@ Determines whether the exception is enabled, either: 'yes' or 'no'. Defaults to 
 Sets the protocol to be included in the exception rule, either: 'TCP' or 'UDP'.
 
 #####`local_port`
-Defines the port to be included in the exception for port-based exception rules.
+Defines the local port to be included in the exception for port-based exception rules.
+
+#####`remote_port`
+Defines the remote port to be included in the exception for port-based exception rules.
 
 #####`remote_ip`
 Specifies remote hosts that can use this rule.

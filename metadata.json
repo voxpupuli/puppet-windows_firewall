@@ -1,6 +1,6 @@
 {
   "name":         "puppet-windows_firewall",
-  "version":      "1.0.0",
+  "version":      "1.0.2",
   "author":       "puppetcommunity",
   "license":      "MIT",
   "summary":      "Module that will manage the windows firewall and it's exceptions",
