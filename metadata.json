@@ -14,9 +14,8 @@
     }
   ],
   "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.0.0 <5.0.0"
-    }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 3.0.0 <5.0.0" },
+    { "name": "puppetlabs/registry", "version_requirement": ">= 0.1.1" },
+    { "name": "liamjbennett/win_facts", "version_requirement": ">= 0.0.1" }
   ]
 }
