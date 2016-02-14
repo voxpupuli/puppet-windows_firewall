@@ -60,18 +60,18 @@ class windows_firewall (
       ensure => 'present',
       path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
       type   => 'dword',
-      data   => $enabled_data
+      data   => $enabled_data,
     }
     registry_value { 'EnableFirewallPublicProfile':
       ensure => 'present',
       path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
       type   => 'dword',
-      data   => $enabled_data
+      data   => $enabled_data,
     }
     registry_value { 'EnableFirewallStandardProfile':
       ensure => 'present',
       path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
       type   => 'dword',
-      data   => $enabled_data
+      data   => $enabled_data,
     }
 }

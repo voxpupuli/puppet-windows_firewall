@@ -1,12 +1,12 @@
 {
   "name":         "puppet-windows_firewall",
   "version":      "1.0.2",
-  "author":       "puppetcommunity",
+  "author":       "puppet",
   "license":      "MIT",
   "summary":      "Module that will manage the windows firewall and it's exceptions",
-  "source":       "https://github.com/puppet-communitu/puppet-windows_firewall",
-  "project_page": "https://github.com/puppet-community/puppet-windows_firewall",
-  "issues_url":   "https://github.com/puppet-communitu/puppet-windows_firewall/issues",
+  "source":       "https://github.com/voxpupuli/puppet-windows_firewall",
+  "project_page": "https://github.com/voxpupuli/puppet-windows_firewall",
+  "issues_url":   "https://github.com/voxpupuli/puppet-windows_firewall/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "windows",
