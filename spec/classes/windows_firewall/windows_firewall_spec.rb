@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe 'windows_firewall', :type => :class do
+describe 'windows_firewall', type: :class do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "with OS: #{os}, ensure: running" do
       let :facts do
-        { :operatingsystemversion => os }
+        { operatingsystemversion: os }
       end
       let :params do
-        { :ensure => 'running' }
+        { ensure: 'running' }
       end
 
       it { should contain_service('windows_firewall').with(
@@ -37,10 +37,10 @@ describe 'windows_firewall', :type => :class do
   ['Windows 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "with OS: #{os}, ensure: running" do
       let :facts do
-        { :operatingsystemversion => os }
+        { operatingsystemversion: os }
       end
       let :params do
-        { :ensure => 'running' }
+        { ensure: 'running' }
       end
       it { should contain_service('windows_firewall').with(
         'name'   => 'MpsSvc',
@@ -69,10 +69,10 @@ describe 'windows_firewall', :type => :class do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "with OS: #{os}, ensure: stopped" do
       let :facts do
-        { :operatingsystemversion => os }
+        { operatingsystemversion: os }
       end
       let :params do
-        { :ensure => 'stopped' }
+        { ensure: 'stopped' }
       end
 
       it { should contain_service('windows_firewall').with(
@@ -102,10 +102,10 @@ describe 'windows_firewall', :type => :class do
   ['Windows 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "with OS: #{os}, ensure: stopped" do
       let :facts do
-        { :operatingsystemversion => os }
+        { operatingsystemversion: os }
       end
       let :params do
-        { :ensure => 'stopped' }
+        { ensure: 'stopped' }
       end
       it { should contain_service('windows_firewall').with(
         'name'   => 'MpsSvc',
@@ -133,7 +133,7 @@ describe 'windows_firewall', :type => :class do
 
   context 'passing invalid param ensure: fubar' do
     let :params do
-      { :ensure => 'fubar' }
+      { ensure: 'fubar' }
     end
     it do
       expect {
