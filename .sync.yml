@@ -1,8 +1,4 @@
 ---
-spec/spec_helper_acceptance.rb:
-  windows: true
-  dependencies:
-    - puppetlabs-stdlib
 spec/acceptance/nodesets/centos-511-x64.yml:
   unmanaged: true
 spec/acceptance/nodesets/centos-66-x64-pe.yml:
