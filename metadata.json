@@ -1,21 +1,35 @@
 {
-  "name":         "puppet-windows_firewall",
-  "version":      "1.0.3",
-  "author":       "puppet",
-  "license":      "MIT",
-  "summary":      "Module that will manage the windows firewall and it's exceptions",
-  "source":       "https://github.com/voxpupuli/puppet-windows_firewall",
+  "name": "puppet-windows_firewall",
+  "version": "1.0.4-rc0",
+  "author": "puppet",
+  "license": "MIT",
+  "summary": "Module that will manage the windows firewall and it's exceptions",
+  "source": "https://github.com/voxpupuli/puppet-windows_firewall",
   "project_page": "https://github.com/voxpupuli/puppet-windows_firewall",
-  "issues_url":   "https://github.com/voxpupuli/puppet-windows_firewall/issues",
+  "issues_url": "https://github.com/voxpupuli/puppet-windows_firewall/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "windows",
-      "operatingsystemrelease": ["2008","2008 R2", "2012", "2012 R2"]
+      "operatingsystemrelease": [
+        "2008",
+        "2008 R2",
+        "2012",
+        "2012 R2"
+      ]
     }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 3.0.0 <5.0.0" },
-    { "name": "puppetlabs/registry", "version_requirement": ">= 0.1.1" },
-    { "name": "liamjbennett/win_facts", "version_requirement": ">= 0.0.1" }
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.0.0 <5.0.0"
+    },
+    {
+      "name": "puppetlabs/registry",
+      "version_requirement": ">= 0.1.1"
+    },
+    {
+      "name": "liamjbennett/win_facts",
+      "version_requirement": ">= 0.0.1"
+    }
   ]
 }
