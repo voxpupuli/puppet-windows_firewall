@@ -6,7 +6,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
@@ -27,7 +27,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985', remote_port: 'any',
@@ -48,7 +48,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
@@ -69,7 +69,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
@@ -90,7 +90,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
@@ -111,7 +111,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985', remote_port: 'any',
@@ -132,7 +132,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
@@ -153,7 +153,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
@@ -174,7 +174,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'fubar', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
@@ -194,7 +194,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
 
       long_display_name =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
@@ -220,7 +220,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'fubar',
           protocol: 'TCP', local_port: '5985',
@@ -240,7 +240,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'fubar', local_port: '5985',
@@ -260,7 +260,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: 'fubar',
@@ -280,7 +280,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: 'Windows Server 2008 R2' }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
 
       long_description =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
@@ -306,7 +306,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
 
       long_description =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
@@ -332,7 +332,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
@@ -352,7 +352,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
@@ -372,7 +372,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
@@ -392,7 +392,7 @@ describe 'windows_firewall::exception', type: :define do
       let :facts do
         { operatingsystemversion: os }
       end
-      let :title do 'Windows Remote Management' end
+      let(:title) { 'Windows Remote Management' }
       let :params do
         { ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
