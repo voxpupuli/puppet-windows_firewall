@@ -8,9 +8,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -29,9 +31,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985', remote_port: 'any',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -50,9 +54,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow',
+        {
+          ensure: 'present', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -71,9 +77,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow',
+        {
+          ensure: 'present', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -92,9 +100,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -113,9 +123,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985', remote_port: 'any',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -134,9 +146,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'absent', direction: 'in', action: 'allow',
+        {
+          ensure: 'absent', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -155,9 +169,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'absent', direction: 'in', action: 'allow',
+        {
+          ensure: 'absent', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -176,9 +192,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'fubar', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'fubar', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -202,9 +220,11 @@ describe 'windows_firewall::exception', type: :define do
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
 
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: long_display_name, description: 'Inbound rule for WinRM' }
+          display_name: long_display_name, description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -222,9 +242,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'fubar',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'fubar',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -242,9 +264,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'fubar', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -262,9 +286,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: 'fubar',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -288,9 +314,11 @@ describe 'windows_firewall::exception', type: :define do
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
 
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: long_description }
+          display_name: 'Windows Remote Management', description: long_description
+        }
       end
 
       it do
@@ -314,9 +342,11 @@ describe 'windows_firewall::exception', type: :define do
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
 
       let :params do
-        { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: long_description }
+          display_name: 'Windows Remote Management', description: long_description
+        }
       end
 
       it do
@@ -334,9 +364,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -354,9 +386,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -374,9 +408,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
@@ -394,9 +430,11 @@ describe 'windows_firewall::exception', type: :define do
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
-        { ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
+        {
+          ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
+        }
       end
 
       it do
