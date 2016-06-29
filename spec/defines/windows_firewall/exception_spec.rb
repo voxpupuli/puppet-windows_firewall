@@ -10,14 +10,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe firewall add portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe firewall add portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -30,14 +31,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985', remote_port: 'any',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip=""',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip=""',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -50,14 +52,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe firewall add allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe firewall add allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -70,14 +73,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -90,14 +94,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -110,14 +115,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985', remote_port: 'any',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteport=any remoteip=""',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteport=any remoteip=""',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -130,14 +136,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -150,14 +157,15 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'absent', direction: 'in', action: 'allow',
           enabled: 'yes', program: 'C:\\foo.exe',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
-      it { should contain_exec('set rule Windows Remote Management').with(
-        'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
-        'provider' => 'windows')
-      }
+      it do
+        should contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
+          'provider' => 'windows'
+)
+      end
     end
   end
 
@@ -170,14 +178,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'fubar', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -197,14 +204,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: long_display_name, description: 'Inbound rule for WinRM'
-        }
+          display_name: long_display_name, description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -218,14 +224,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'fubar',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -239,14 +244,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'fubar', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -260,14 +264,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: 'fubar',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -291,9 +294,9 @@ describe 'windows_firewall::exception', type: :define do
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -317,9 +320,9 @@ describe 'windows_firewall::exception', type: :define do
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.not_to raise_error
+        end.not_to raise_error
       end
     end
   end
@@ -333,14 +336,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -354,14 +356,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.not_to raise_error
+        end.not_to raise_error
       end
     end
   end
@@ -375,14 +376,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.to raise_error(Puppet::Error)
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -396,14 +396,13 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         { ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
           protocol: 'TCP', local_port: '5985',
-          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
-        }
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM' }
       end
 
       it do
-        expect {
+        expect do
           should contain_exec('set rule Windows Remote Management')
-        }.not_to raise_error
+        end.not_to raise_error
       end
     end
   end
