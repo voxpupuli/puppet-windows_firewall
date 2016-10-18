@@ -15,7 +15,7 @@ describe 'windows_firewall', type: :class do
           'name'   => 'SharedAccess',
           'ensure' => 'running',
           'enable' => 'true'
-)
+        )
       end
 
       it do
@@ -23,21 +23,21 @@ describe 'windows_firewall', type: :class do
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '1'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '1'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '1'
-)
+        )
       end
     end
   end
@@ -55,7 +55,7 @@ describe 'windows_firewall', type: :class do
           'name'   => 'MpsSvc',
           'ensure' => 'running',
           'enable' => 'true'
-)
+        )
       end
 
       it do
@@ -63,21 +63,21 @@ describe 'windows_firewall', type: :class do
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '1'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '1'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '1'
-)
+        )
       end
     end
   end
@@ -96,7 +96,7 @@ describe 'windows_firewall', type: :class do
           'name'   => 'SharedAccess',
           'ensure' => 'stopped',
           'enable' => 'false'
-)
+        )
       end
 
       it do
@@ -104,21 +104,21 @@ describe 'windows_firewall', type: :class do
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '0'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '0'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '0'
-)
+        )
       end
     end
   end
@@ -136,7 +136,7 @@ describe 'windows_firewall', type: :class do
           'name'   => 'MpsSvc',
           'ensure' => 'stopped',
           'enable' => 'false'
-)
+        )
       end
 
       it do
@@ -144,21 +144,21 @@ describe 'windows_firewall', type: :class do
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '0'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '0'
-)
+        )
       end
       it do
         should contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '0'
-)
+        )
       end
     end
   end
