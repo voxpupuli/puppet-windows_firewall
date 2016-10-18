@@ -19,7 +19,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe firewall add portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -42,7 +42,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip=""',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -65,7 +65,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe firewall add allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -88,7 +88,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -111,7 +111,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -134,7 +134,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteport=any remoteip=""',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -157,7 +157,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
@@ -180,7 +180,7 @@ describe 'windows_firewall::exception', type: :define do
         should contain_exec('set rule Windows Remote Management').with(
           'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
           'provider' => 'windows'
-)
+        )
       end
     end
   end
