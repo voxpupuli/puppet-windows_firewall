@@ -1,5 +1,12 @@
 # Windows Firewall module for Puppet
 
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-windows_firewall.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-windows_firewall)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-windows_firewall/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-windows_firewall)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/windows_firewall.svg)](https://forge.puppetlabs.com/puppet/windows_firewall)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/windows_firewall.svg)](https://forge.puppetlabs.com/puppet/windows_firewall)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/windows_firewall.svg)](https://forge.puppetlabs.com/puppet/windows_firewall)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/windows_firewall.svg)](https://forge.puppetlabs.com/puppet/windows_firewall)
+
 #### Table of Contents
 
 1. [Overview - What is the windows_firewall module?](#overview)
@@ -21,8 +28,6 @@
 ## Overview
 
 This is a module that will manage the Microsoft Windows Firewall and it's exceptions.
-
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-windows_firewall.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-windows_firewall)
 
 ## Module Description
 
