@@ -11,7 +11,7 @@ describe 'windows_firewall', type: :class do
       end
 
       it do
-        should contain_service('windows_firewall').with(
+        is_expected.to contain_service('windows_firewall').with(
           'name'   => 'SharedAccess',
           'ensure' => 'running',
           'enable' => 'true'
@@ -19,21 +19,21 @@ describe 'windows_firewall', type: :class do
       end
 
       it do
-        should contain_registry_value('EnableFirewallDomainProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '1'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallPublicProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '1'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallStandardProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '1'
@@ -51,7 +51,7 @@ describe 'windows_firewall', type: :class do
         { ensure: 'running' }
       end
       it do
-        should contain_service('windows_firewall').with(
+        is_expected.to contain_service('windows_firewall').with(
           'name'   => 'MpsSvc',
           'ensure' => 'running',
           'enable' => 'true'
@@ -59,21 +59,21 @@ describe 'windows_firewall', type: :class do
       end
 
       it do
-        should contain_registry_value('EnableFirewallDomainProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '1'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallPublicProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '1'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallStandardProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '1'
@@ -92,7 +92,7 @@ describe 'windows_firewall', type: :class do
       end
 
       it do
-        should contain_service('windows_firewall').with(
+        is_expected.to contain_service('windows_firewall').with(
           'name'   => 'SharedAccess',
           'ensure' => 'stopped',
           'enable' => 'false'
@@ -100,21 +100,21 @@ describe 'windows_firewall', type: :class do
       end
 
       it do
-        should contain_registry_value('EnableFirewallDomainProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '0'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallPublicProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '0'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallStandardProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '0'
@@ -132,7 +132,7 @@ describe 'windows_firewall', type: :class do
         { ensure: 'stopped' }
       end
       it do
-        should contain_service('windows_firewall').with(
+        is_expected.to contain_service('windows_firewall').with(
           'name'   => 'MpsSvc',
           'ensure' => 'stopped',
           'enable' => 'false'
@@ -140,21 +140,21 @@ describe 'windows_firewall', type: :class do
       end
 
       it do
-        should contain_registry_value('EnableFirewallDomainProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
           'data'   => '0'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallPublicProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
           'data'   => '0'
         )
       end
       it do
-        should contain_registry_value('EnableFirewallStandardProfile').with(
+        is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
           'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
           'data'   => '0'
@@ -169,7 +169,7 @@ describe 'windows_firewall', type: :class do
     end
     it do
       expect do
-        should contain_registry_value('EnableFirewall')
+        is_expected.to contain_registry_value('EnableFirewall')
       end.to raise_error(Puppet::Error)
     end
   end
