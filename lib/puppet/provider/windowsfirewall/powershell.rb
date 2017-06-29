@@ -1,8 +1,8 @@
 Puppet::Type.type(:windowsfirewall).provide(:powershell) do
-  confine :operatingsystem => :windows # rubocop:disable Style/HashSyntax
-  if Facter.value(:kernelmajversion) = %r{^([6-8]\.[2-9]|10\.[0-9])}
+  confine :operatingsystem => :windows
+  if Facter.value(:kernelmajversion) =~ /^([6-8]\.[2-9]|10\.[0-9])/
 
-    commands :powershell => # rubocop:disable Style/HashSyntax
+    commands :powershell =>
       if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
         "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
       elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
