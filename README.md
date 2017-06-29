@@ -39,7 +39,7 @@ any exceptions that you need to have in place.
 
 ### What windows_firewall affects
 
-* windows firewall service and corrisponding Windows Registry keys
+* windows firewall service and corresponding Windows Registry keys
 * windows registry keys and values for any defined exception rules
 
 ### Beginning with windows_firewall
@@ -49,6 +49,23 @@ The windows_firewall resource allows you to manage the firewall service itself.
 ```
 class { 'windows_firewall': ensure => 'stopped' }
 ```
+
+On Server 2012 and up, additional features are available to be managed,
+including Windows firewall zones Domain, Public, and Private via types
+and providers.
+
+```
+class { 'windows_firewall':
+  ensure => 'running',
+}
+windowsfirewall { 'domain':
+  ensure                              => 'present',
+  default_outbound_action             => 'allow',
+}
+```
+
+You may also query resources on Server 2012 and up via `puppet resource
+windowsfirewall`.
 
 Once the windows firewall is managed you may then want to start managing the rules
 and exceptions within it.
@@ -135,6 +152,116 @@ A description of the exception to apply.
 
 Specifies that the traffic for this exception traverses an edge device
 
+**Parameters within `windowsfirewall` (Limited to 2012 and up)**
+
+##### `ensure`
+
+Determines whether the firewall zone is Enabled, 'present', or Disabled,
+'absent'.
+
+##### `allow_inbound_rules`
+
+Specifies whether the firewall blocks inbound traffic or not. If set to
+'False', then all inbound firewall rules will be ignored. Accepts
+'True', 'False', or 'NotConfigured'. Defaults to 'NotConfigured'.
+
+##### `allow_local_firewall_rules`
+
+Specifies whether the local firewall rules should be merged into the
+effective policy along with Group Policy settings. If set to 'False',
+then all rules defined by the local administrator are ignored, and only
+GPO based firewall rules are applied. Accepts 'True', 'False', or
+'NotConfigured'. Defaults to 'NotConfigured'.
+
+##### `allow_local_ipsec_rules`
+
+Specifies whether the local IPsec rules should be merged into the
+effective policy along with Group Policy settings. If set to 'False',
+then all rules defined by the local administrator are ignored, and only
+GPO based IPsec rules are applied. Accepts 'True', 'False', or
+'NotConfigured'. Defaults to 'NotConfigured'.
+
+##### `allow_unicast_response_to_multicast`
+
+Allows unicast responses to multi-cast traffic.  If set to 'False', the
+computer discards unicast responses to outgoing multi-cast or broadcast
+messages. Accepts 'True', 'False', or 'NotConfigured'. Defaults to
+'NotConfigured'.
+
+##### `allow_user_apps`
+
+Specifies whether traffic from local user applications is allowed
+through the firewall. Accepts 'True', 'False', or 'NotConfigured'.
+Defaults to 'NotConfigured'.
+
+##### `allow_user_ports`
+
+Specifies whether traffic is allowed through local user ports. Accepts
+'True', 'False', or 'NotConfigured'. Defaults to 'NotConfigured'.
+
+##### `default_inbound_action`
+
+Specifies how to filter inbound traffic. 'Allow' allows all inbound
+network traffic, whether or not it matches an inbound rule. Accepts
+'Block', 'Allow', or 'NotConfigured'. Defaults to 'Block'.
+
+##### `default_outbound_action`
+
+Specifies how to filter outbound traffic. 'Block' blocks outbound
+network traffic that does not match an outbound rule. Accepts 'Block',
+'Allow', or 'NotConfigured'.  Defaults to 'Allow'.
+
+##### `disabled_interface_aliases`
+
+Specifies a list of interfaces on which firewall settings are excluded.
+
+##### `enable_stealth_mode_for_ipsec`
+
+Enables stealth mode for IPsec traffic. If set to 'True', it will block
+outgoing ICMP unreachable and TCP reset messages for a port when no
+application is listening on that port. Accepts 'True', 'False', or
+'NotConfigured'. Defaults to 'NotConfigured'.
+
+##### `log_allowed`
+
+Specifies how to handle logging for allowed packets. If set to 'True',
+Windows writes an entry to the log whenever an incoming or outgoing
+connection is allowed by the policy. Accepts 'True', 'False', or
+'NotConfigured'. Defaults to 'False'.
+
+##### `log_blocked`
+
+Specifies how to handle logging for dropped packets. If set to 'True',
+Windows writes an entry to the log whenever an incoming or outgoing
+connection is prevented by the policy. Accepts 'True', 'False', or
+'NotConfigured'. Defaults to 'False'.
+
+##### `log_ignored`
+
+Specifies how to handle logging for ignored packets. If set to 'True',
+windows writes an entry to the log whenever an incoming or outgoing
+connection is prevented by the policy. Accepts 'True', 'False', or
+'NotConfigured'. Defaults to 'False'.
+
+##### `log_file_name`
+
+Specifies the path and filename of the file to which log entries are
+written. Accepts windows environment variables.  Defaults to
+`%windir%\system32\logfiles\firewall\pfirewall.log`.
+
+##### `log_max_size_kilobytes`
+
+Specifies the maximum file size of the log. Accepts a number between '1'
+and '32767'. Defaults to '4096'.
+
+##### `notify_on_listen`
+
+Specifies whether user gets notified when an application starts
+listening for inbound connections. If set to 'False', Windows does not
+notify the user whenever a program or service starts listening for
+inbound connections. Accepts 'True', 'False', or 'NotConfigured'.
+Defaults to 'True'.
+
 ## Reference
 
 ### Classes
@@ -150,13 +277,14 @@ Specifies that the traffic for this exception traverses an edge device
 
 * [`windows_firewall::exception`] Manages the configuration of firewall exceptions
 
+### Module Specific Provider
+
+* [`windowsfirewall`] Manages the configuration of firewall zones.
 ## Limitations
 
 This module is tested on the following platforms:
 
-* Windows 2008 R2
-
-It is tested with the OSS version of Puppet only.
+* Windows 2008 R2, Windows 2012 R2, and Windows 2016.
 
 ## Development
 
