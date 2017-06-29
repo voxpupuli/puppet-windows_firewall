@@ -1,8 +1,8 @@
 Puppet::Type.newtype(:windowsfirewall) do
-  desc "Puppet type that models Windows Firewall rules"
+  desc 'Puppet type that models Windows Firewall rules'
   ensurable
 
-  newparam(:name, :namevar => true) do
+  newparam(:name, namevar: true) do
     newvalues(:domain, :public, :private)
     desc "Windows firewall zones - either 'domain', 'public', or 'private'"
     munge do |value|

@@ -11,6 +11,3 @@ describe provider_class do
   end
 end
 
-def create
-  args = build_arguments_for_powershell('create')
-end
