@@ -1,18 +1,18 @@
 Puppet::Type.type(:windowsfirewall).provide(:powershell) do
-  confine :operatingsystem => :windows
-  if Facter.value(:kernelmajversion) =~ /^([6-8]\.[2-9]|10\.[0-9])/
+  confine :operatingsystem => :windows # rubocop:disable Style/HashSyntax
+  if Facter.value(:kernelmajversion) = %r{^([6-8]\.[2-9]|10\.[0-9])}
 
-    commands :powershell =>
-      if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
+    commands :powershell => # rubocop:disable Style/HashSyntax
+      if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
         "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
-      elsif File.exists?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
+      elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
         "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
-      elsif File.exists?('/usr/bin/powershell')
+      elsif File.exist?('/usr/bin/powershell')
         '/usr/bin/powershell'
-      elsif File.exists?('/usr/local/bin/powershell')
+      elsif File.exist?('/usr/local/bin/powershell')
         '/usr/local/bin/powershell'
       elsif !Puppet::Util::Platform.windows?
-        "powershell"
+        'powershell'
       else
         'powershell.exe'
       end
@@ -39,7 +39,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
 
     mk_resource_methods
 
-    def initialize(value={})
+    def initialize(value = {})
       super(value)
       @property_flush = {}
     end
@@ -68,7 +68,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
 
     def self.instances
       array_of_instances = []
-      ['domain', 'private', 'public'].each do |zone|
+      %w[domain private public].each do |zone|
         instance_properties = get_firewall_properties(zone)
         array_of_instances << new(instance_properties)
       end
@@ -77,7 +77,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
 
     def self.prefetch(resources)
       instances.each do |prov|
-        if resource = resources[prov.name]
+        if resource == resources[prov.name]
           resource.provider = prov
         end
       end
@@ -87,7 +87,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
       output = powershell(['Get-NetFirewallProfile', '-profile', "\"#{zone}\""]).split("\n")
       3.times { output.shift }
       hash_of_properties = {}
-      output.each do | line|
+      output.each do |line|
         key, val      = line.split(':')
         property_name = method_map.key(key.strip)
         next if property_name.nil?
@@ -124,7 +124,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
         value = @property_flush
         args_skip = true if value.empty?
       else
-        Puppet.fail "Windowsfirewall resource (powershell provider) is unable to build necessary arguments for Powershell."
+        Puppet.fail 'Windowsfirewall resource (powershell provider) is unable to build necessary arguments for Powershell.'
       end
 
       # In the event that the resource is absent and Puppet calls the create
