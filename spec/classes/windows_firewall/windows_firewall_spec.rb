@@ -50,6 +50,7 @@ describe 'windows_firewall', type: :class do
       let :params do
         { ensure: 'running' }
       end
+
       it do
         is_expected.to contain_service('windows_firewall').with(
           'name'   => 'MpsSvc',
@@ -131,6 +132,7 @@ describe 'windows_firewall', type: :class do
       let :params do
         { ensure: 'stopped' }
       end
+
       it do
         is_expected.to contain_service('windows_firewall').with(
           'name'   => 'MpsSvc',
@@ -167,6 +169,7 @@ describe 'windows_firewall', type: :class do
     let :params do
       { ensure: 'fubar' }
     end
+
     it do
       expect do
         is_expected.to contain_registry_value('EnableFirewall')

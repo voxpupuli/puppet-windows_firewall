@@ -209,15 +209,15 @@ describe 'windows_firewall::exception', type: :define do
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, display_name => >255" do
-      let :facts do
-        { operatingsystemversion: os }
-      end
-      let(:title) { 'Windows Remote Management' }
-
       long_display_name =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
         1RTgW7xawfeDOZOZh2CbmV7zPOqbF8rXxFwxtugUBIpxmpQ8TCk93wF04RicJidwhhiKQz5YXwTbMbREXtQz25mhkPxOI6cyA9QJ
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
+
+      let :facts do
+        { operatingsystemversion: os }
+      end
+      let(:title) { 'Windows Remote Management' }
 
       let :params do
         {
@@ -303,15 +303,15 @@ describe 'windows_firewall::exception', type: :define do
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "with invalid custom param: os => #{os}, description => >255" do
-      let :facts do
-        { operatingsystemversion: 'Windows Server 2008 R2' }
-      end
-      let(:title) { 'Windows Remote Management' }
-
       long_description =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
         1RTgW7xawfeDOZOZh2CbmV7zPOqbF8rXxFwxtugUBIpxmpQ8TCk93wF04RicJidwhhiKQz5YXwTbMbREXtQz25mhkPxOI6cyA9QJ
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
+
+      let :facts do
+        { operatingsystemversion: 'Windows Server 2008 R2' }
+      end
+      let(:title) { 'Windows Remote Management' }
 
       let :params do
         {
@@ -331,15 +331,15 @@ describe 'windows_firewall::exception', type: :define do
 
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, description => >255" do
-      let :facts do
-        { operatingsystemversion: os }
-      end
-      let(:title) { 'Windows Remote Management' }
-
       long_description =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
         1RTgW7xawfeDOZOZh2CbmV7zPOqbF8rXxFwxtugUBIpxmpQ8TCk93wF04RicJidwhhiKQz5YXwTbMbREXtQz25mhkPxOI6cyA9QJ
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
+
+      let :facts do
+        { operatingsystemversion: os }
+      end
+      let(:title) { 'Windows Remote Management' }
 
       let :params do
         {
