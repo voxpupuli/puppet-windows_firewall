@@ -115,13 +115,13 @@ define windows_firewall::exception(
         if empty($local_port) {
           $local_port_cmd = ''
         } else {
-          validate_re($local_port,['any|[0-9]{1,5}'])
+          validate_re("$local_port",['any|[0-9]{1,5}'])
           $local_port_cmd = "${local_port_param}=${local_port}"
         }
         if empty($remote_port) {
           $remote_port_cmd = ''
         } else {
-          validate_re($remote_port,['any|[0-9]{1,5}'])
+          validate_re("$remote_port",['any|[0-9]{1,5}'])
           $remote_port_cmd = " ${remote_port_param}=${remote_port}"
         }
         $allow_context = "protocol=${protocol} ${local_port_cmd}${remote_port_cmd}"
