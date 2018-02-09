@@ -115,13 +115,13 @@ define windows_firewall::exception(
         if empty($local_port) {
           $local_port_cmd = ''
         } else {
-          validate_re("${local_port}",['any|[0-9]{1,5}'])  # lint:ignore:only_variable_string
+          validate_re($local_port,['any|[0-9]{1,5}'])
           $local_port_cmd = "${local_port_param}=${local_port}"
         }
         if empty($remote_port) {
           $remote_port_cmd = ''
         } else {
-          validate_re("${remote_port}",['any|[0-9]{1,5}'])  # lint:ignore:only_variable_string
+          validate_re($remote_port,['any|[0-9]{1,5}'])
           $remote_port_cmd = " ${remote_port_param}=${remote_port}"
         }
         $allow_context = "protocol=${protocol} ${local_port_cmd}${remote_port_cmd}"
@@ -135,10 +135,8 @@ define windows_firewall::exception(
     # Validate common parameters
     validate_re($ensure,['^(present|absent)$'])
     validate_slength($display_name,255)
-    # lint:ignore:only_variable_string
-    validate_re("${enabled}",['^(yes|no|true|false)$'])
-    validate_re("${allow_edge_traversal}",['^(yes|no|true|false)$'])
-    # lint:endignore
+    validate_re($enabled,['^(yes|no|true|false)$'])
+    validate_re($allow_edge_traversal,['^(yes|no|true|false)$'])
 
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
