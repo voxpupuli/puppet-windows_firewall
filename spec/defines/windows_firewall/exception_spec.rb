@@ -10,7 +10,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -33,7 +33,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985', remote_port: 'any',
+          protocol: 'TCP', local_port: 5985, remote_port: 'any',
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -102,7 +102,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -125,7 +125,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'absent', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985', remote_port: 'any',
+          protocol: 'TCP', local_port: 5985, remote_port: 'any',
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -194,7 +194,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'fubar', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -222,7 +222,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: long_display_name, description: 'Inbound rule for WinRM'
         }
       end
@@ -244,7 +244,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'fubar',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -266,7 +266,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'fubar', local_port: '5985',
+          protocol: 'fubar', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -316,7 +316,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: long_description
         }
       end
@@ -344,7 +344,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: long_description
         }
       end
@@ -366,7 +366,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -388,7 +388,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'fubar', action: 'allow', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -396,7 +396,7 @@ describe 'windows_firewall::exception', type: :define do
       it do
         expect do
           is_expected.to contain_exec('set rule Windows Remote Management')
-        end.not_to raise_error
+        end.to raise_error(Puppet::Error)
       end
     end
   end
@@ -410,7 +410,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -432,7 +432,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'fubar', enabled: 'yes',
-          protocol: 'TCP', local_port: '5985',
+          protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -440,7 +440,7 @@ describe 'windows_firewall::exception', type: :define do
       it do
         expect do
           is_expected.to contain_exec('set rule Windows Remote Management')
-        end.not_to raise_error
+        end.to raise_error(Puppet::Error)
       end
     end
   end

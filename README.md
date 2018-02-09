@@ -57,10 +57,10 @@ and exceptions within it.
 windows_firewall::exception { 'WINRM':
   ensure       => present,
   direction    => 'in',
-  action       => 'Allow',
+  action       => 'allow',
   enabled      => 'yes',
   protocol     => 'TCP',
-  local_port   => '5985',
+  local_port   => 5985,
   remote_port  => 'any',
   display_name => 'Windows Remote Management HTTP-In',
   description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',

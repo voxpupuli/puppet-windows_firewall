@@ -53,10 +53,10 @@
 #   windows_firewall::exception { 'WINRM-HTTP-In-TCP':
 #     ensure       => present,
 #     direction    => 'in',
-#     action       => 'Allow',
-#     enabled      => 'yes',
+#     action       => 'allow',
+#     enabled      => true,
 #     protocol     => 'TCP',
-#     local_port   => '5985',
+#     local_port   => 5985,
 #     remote_port  => 'any',
 #     remote_ip    => '10.0.0.1,10.0.0.2'
 #     program      => undef,
@@ -69,27 +69,26 @@
 #   windows_firewall::exception { 'myapp':
 #     ensure       => present,
 #     direction    => 'in',
-#     action       => 'Allow',
-#     enabled      => 'yes',
+#     action       => 'allow',
+#     enabled      => true,
 #     program      => 'C:\\myapp.exe',
 #     display_name => 'My App',
 #     description  => 'Inbound rule for My App',
 #   }
 #
 define windows_firewall::exception(
-  $ensure = 'present',
-  $direction = '',
-  $action = '',
-  $enabled = 'yes',
-  $protocol = '',
-  $local_port = '',
-  $remote_port = '',
-  $remote_ip = '',
-  $program = undef,
-  $display_name = '',
-  $description = '',
-  $allow_edge_traversal = 'no',
-
+  Enum['present', 'absent'] $ensure = 'present',
+  Enum['in', 'out'] $direction = 'in',
+  Enum['allow', 'block'] $action = 'allow',
+  Boolean $enabled = true,
+  Optional[Enum['TCP', 'UDP', 'ICMPv4', 'ICMPv6']] $protocol = undef,
+  Optional[Variant[Integer[1, 65535], Enum['any']]] $local_port = undef,
+  Optional[Variant[Integer[1, 65535], Enum['any']]] $remote_port = undef,
+  Optional[String] $remote_ip = undef,
+  Optional[String] $program = undef,
+  String[0, 255] $display_name = '',
+  String $description = '',
+  Boolean $allow_edge_traversal = false,
 ) {
 
     # Check if we're allowing a program or port/protocol and validate accordingly
@@ -98,8 +97,8 @@ define windows_firewall::exception(
       case $::operatingsystemversion {
         /Windows Server 2003/, /Windows XP/: {
           $local_port_param = 'port'
-    unless empty($remote_port) {
-            fail "Sorry, :remote_port param is not supported on  ${::operatingsystemversion}"
+          unless empty($remote_port) {
+            fail "Sorry, :remote_port param is not supported on ${::operatingsystemversion}"
           }
         }
         default: {
@@ -108,23 +107,26 @@ define windows_firewall::exception(
         }
       }
       $fw_command = 'portopening'
-      validate_re($protocol,['^(TCP|UDP|ICMPv(4|6))$'])
-      if $protocol =~ /ICMPv(4|6)/ {
-        $allow_context = "protocol=${protocol}"
+      if $remote_port or $local_port {
+        unless $protocol {
+          fail 'Sorry, protocol is required, when defining local or remote port'
+        }
+      }
+      if $protocol =~ /^ICMPv(4|6)/ {
+          $allow_context = "protocol=${protocol}"
       } else {
-        if empty($local_port) {
-          $local_port_cmd = ''
-        } else {
-          validate_re($local_port,['any|[0-9]{1,5}'])
+        if $local_port {
           $local_port_cmd = "${local_port_param}=${local_port}"
-        }
-        if empty($remote_port) {
-          $remote_port_cmd = ''
         } else {
-          validate_re($remote_port,['any|[0-9]{1,5}'])
-          $remote_port_cmd = " ${remote_port_param}=${remote_port}"
+          $local_port_cmd = ''
         }
-        $allow_context = "protocol=${protocol} ${local_port_cmd}${remote_port_cmd}"
+        if $remote_port {
+          $remote_port_cmd = "${remote_port_param}=${remote_port}"
+        } else {
+          $remote_port_cmd = ''
+        }
+        # Strip whitespace that in case remore_port_cmd is empty
+        $allow_context = rstrip("protocol=${protocol} ${local_port_cmd} ${remote_port_cmd}")
       }
     } else {
       $fw_command = 'allowedprogram'
@@ -132,17 +134,9 @@ define windows_firewall::exception(
       validate_absolute_path($program)
     }
 
-    # Validate common parameters
-    validate_re($ensure,['^(present|absent)$'])
-    validate_slength($display_name,255)
-    validate_re($enabled,['^(yes|no)$'])
-    validate_re($allow_edge_traversal,['^(yes|no)$'])
-
     case $::operatingsystemversion {
       'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
         validate_slength($description,255)
-        validate_re($direction,['^(in|out)$'])
-        validate_re($action,['^(allow|block)$'])
       }
       default: { }
     }
@@ -167,16 +161,25 @@ define windows_firewall::exception(
     case $::operatingsystemversion {
       /Windows Server 2003/, /Windows XP/: {
         $mode = $enabled ? {
-          'yes' => 'ENABLE',
-          'no'  => 'DISABLE',
+          true  => 'ENABLE',
+          false => 'DISABLE',
         }
         $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
+        $mode = $enabled ? {
+          true  => 'yes',
+          false => 'no',
+        }
+        $edge = $allow_edge_traversal ? {
+          true  => 'yes',
+          false => 'no',
+        }
+
         if $fw_action == 'delete' and $program == undef {
           $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
         } else {
-          $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${enabled} edge=${allow_edge_traversal} ${allow_context} remoteip=\"${remote_ip}\""
+          $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
         }
       }
     }
