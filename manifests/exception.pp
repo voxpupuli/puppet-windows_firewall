@@ -106,25 +106,30 @@ define windows_firewall::exception(
           $remote_port_param = 'remoteport'
         }
       }
+
       $fw_command = 'portopening'
+
       if $remote_port or $local_port {
         unless $protocol {
           fail 'Sorry, protocol is required, when defining local or remote port'
         }
       }
+
       if $protocol =~ /^ICMPv(4|6)/ {
-          $allow_context = "protocol=${protocol}"
+        $allow_context = "protocol=${protocol}"
       } else {
         if $local_port {
           $local_port_cmd = "${local_port_param}=${local_port}"
         } else {
           $local_port_cmd = ''
         }
+
         if $remote_port {
           $remote_port_cmd = "${remote_port_param}=${remote_port}"
         } else {
           $remote_port_cmd = ''
         }
+
         # Strip whitespace that in case remore_port_cmd is empty
         $allow_context = rstrip("protocol=${protocol} ${local_port_cmd} ${remote_port_cmd}")
       }
@@ -146,16 +151,16 @@ define windows_firewall::exception(
 
     # Use unless for exec if we want the rule to exist, include a description
     if $ensure == 'present' {
-        $fw_action = 'add'
-        $unless = $check_rule_existance
-        $onlyif = undef
-        $fw_description = "description=\"${description}\""
+      $fw_action = 'add'
+      $unless = $check_rule_existance
+      $onlyif = undef
+      $fw_description = "description=\"${description}\""
     } else {
     # Or onlyif if we expect it to be absent; no description argument
-        $fw_action = 'delete'
-        $onlyif = $check_rule_existance
-        $unless = undef
-        $fw_description = ''
+      $fw_action = 'delete'
+      $onlyif = $check_rule_existance
+      $unless = undef
+      $fw_description = ''
     }
 
     case $::operatingsystemversion {
@@ -191,4 +196,3 @@ define windows_firewall::exception(
       unless   => $unless,
     }
 }
-

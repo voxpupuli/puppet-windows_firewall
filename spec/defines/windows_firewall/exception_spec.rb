@@ -186,14 +186,14 @@ describe 'windows_firewall::exception', type: :define do
   end
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, ensure => fubar" do
+    context "with invalid custom param: os => #{os}, ensure => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
         {
-          ensure: 'fubar', direction: 'in', action: 'allow', enabled: true,
+          ensure: 'invalid', direction: 'in', action: 'allow', enabled: true,
           protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
@@ -236,14 +236,14 @@ describe 'windows_firewall::exception', type: :define do
   end
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, enabled => fubar" do
+    context "with invalid custom param: os => #{os}, enabled => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
         {
-          ensure: 'present', direction: 'in', action: 'allow', enabled: 'fubar',
+          ensure: 'present', direction: 'in', action: 'allow', enabled: 'invalid',
           protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
@@ -258,7 +258,7 @@ describe 'windows_firewall::exception', type: :define do
   end
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, protocol => fubar" do
+    context "with invalid custom param: os => #{os}, protocol => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
@@ -266,7 +266,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: true,
-          protocol: 'fubar', local_port: 5985,
+          protocol: 'invalid', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -280,7 +280,7 @@ describe 'windows_firewall::exception', type: :define do
   end
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, local_port => fubar" do
+    context "with invalid custom param: os => #{os}, local_port => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
@@ -288,7 +288,7 @@ describe 'windows_firewall::exception', type: :define do
       let :params do
         {
           ensure: 'present', direction: 'in', action: 'allow', enabled: true,
-          protocol: 'TCP', local_port: 'fubar',
+          protocol: 'TCP', local_port: 'invalid',
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
       end
@@ -358,14 +358,14 @@ describe 'windows_firewall::exception', type: :define do
   end
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
-    context "with invalid custom param: os => #{os}, direction => fubar" do
+    context "with invalid custom param: os => #{os}, direction => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
         {
-          ensure: 'present', direction: 'fubar', action: 'allow', enabled: true,
+          ensure: 'present', direction: 'invalid', action: 'allow', enabled: true,
           protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
@@ -380,14 +380,14 @@ describe 'windows_firewall::exception', type: :define do
   end
 
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, direction => fubar" do
+    context "with invalid custom param: os => #{os}, direction => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
         {
-          ensure: 'present', direction: 'fubar', action: 'allow', enabled: true,
+          ensure: 'present', direction: 'invalid', action: 'allow', enabled: true,
           protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
@@ -396,20 +396,20 @@ describe 'windows_firewall::exception', type: :define do
       it do
         expect do
           is_expected.to contain_exec('set rule Windows Remote Management')
-        end.to raise_error(Puppet::Error, %r{fubar})
+        end.to raise_error(Puppet::Error, %r{expects a match for Enum})
       end
     end
   end
 
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
-    context "with invalid custom param: os => #{os}, action => fubar" do
+    context "with invalid custom param: os => #{os}, action => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
         {
-          ensure: 'present', direction: 'in', action: 'fubar', enabled: true,
+          ensure: 'present', direction: 'in', action: 'invalid', enabled: true,
           protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
@@ -418,20 +418,20 @@ describe 'windows_firewall::exception', type: :define do
       it do
         expect do
           is_expected.to contain_exec('set rule Windows Remote Management')
-        end.to raise_error(Puppet::Error, %r{fubar})
+        end.to raise_error(Puppet::Error, %r{expects a match for Enum})
       end
     end
   end
 
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
-    context "with invalid custom param: os => #{os}, action => fubar" do
+    context "with invalid custom param: os => #{os}, action => invalid" do
       let :facts do
         { operatingsystemversion: os }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
         {
-          ensure: 'present', direction: 'in', action: 'fubar', enabled: true,
+          ensure: 'present', direction: 'in', action: 'invalid', enabled: true,
           protocol: 'TCP', local_port: 5985,
           display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM'
         }
@@ -440,7 +440,7 @@ describe 'windows_firewall::exception', type: :define do
       it do
         expect do
           is_expected.to contain_exec('set rule Windows Remote Management')
-        end.to raise_error(Puppet::Error, %r{fubar})
+        end.to raise_error(Puppet::Error, %r{expects a match for Enum})
       end
     end
   end
