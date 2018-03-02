@@ -167,13 +167,13 @@ describe 'windows_firewall', type: :class do
 
   context 'passing invalid type for param ensure' do
     let :params do
-      { ensure: ['not','a','string'] }
+      { ensure: %w[not a string] }
     end
 
     it do
       expect do
         is_expected.to contain_registry_value('EnableFirewall')
-      end.to raise_error(Puppet::Error,/expects a String value/)
+      end.to raise_error(Puppet::Error, %r{expects a String value})
     end
   end
 end
