@@ -147,7 +147,8 @@ define windows_firewall::exception(
     }
 
     # Set command to check for existing rules
-    $check_rule_existance= "C:\\Windows\\System32\\netsh.exe advfirewall firewall show rule name=\"${display_name}\""
+    $netsh_exe = "${facts['os']['windows']['system32']}\\netsh.exe"
+    $check_rule_existance= "${netsh_exe} advfirewall firewall show rule name=\"${display_name}\""
 
     # Use unless for exec if we want the rule to exist, include a description
     if $ensure == 'present' {
@@ -169,7 +170,7 @@ define windows_firewall::exception(
           true  => 'ENABLE',
           false => 'DISABLE',
         }
-        $netsh_command = "C:\\Windows\\System32\\netsh.exe firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
+        $netsh_command = "${netsh_exe} firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
       }
       default: {
         $mode = $enabled ? {
@@ -182,9 +183,9 @@ define windows_firewall::exception(
         }
 
         if $fw_action == 'delete' and $program == undef {
-          $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
+          $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
         } else {
-          $netsh_command = "C:\\Windows\\System32\\netsh.exe advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
+          $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
         }
       }
     }

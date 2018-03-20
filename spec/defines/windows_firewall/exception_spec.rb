@@ -4,7 +4,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "port rule with OS: #{os}, ensure: present" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -17,7 +24,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe firewall add portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
+          'command' => 'C:\\windows\\system32\\netsh.exe firewall add portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
           'provider' => 'windows'
         )
       end
@@ -27,7 +34,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "port rule with OS: #{os}, ensure: present" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -40,7 +54,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip=""',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip=""',
           'provider' => 'windows'
         )
       end
@@ -50,7 +64,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "program rule with OS: #{os}, ensure: present" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -63,7 +84,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe firewall add allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
+          'command' => 'C:\\windows\\system32\\netsh.exe firewall add allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
           'provider' => 'windows'
         )
       end
@@ -73,7 +94,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "program rule with OS: #{os}, ensure: present" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -86,7 +114,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
           'provider' => 'windows'
         )
       end
@@ -96,7 +124,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "port rule with OS: #{os}, ensure: absent" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -109,7 +144,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
+          'command' => 'C:\\windows\\system32\\netsh.exe firewall delete portopening name="Windows Remote Management" mode=ENABLE protocol=TCP port=5985',
           'provider' => 'windows'
         )
       end
@@ -119,7 +154,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "port rule with OS: #{os}, ensure: absent" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -132,7 +174,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteport=any remoteip=""',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in protocol=TCP localport=5985 remoteport=any remoteip=""',
           'provider' => 'windows'
         )
       end
@@ -142,7 +184,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "program rule with OS: #{os}, ensure: absent" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -155,7 +204,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe firewall delete allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
+          'command' => 'C:\\windows\\system32\\netsh.exe firewall delete allowedprogram name="Windows Remote Management" mode=ENABLE program="C:\\foo.exe"',
           'provider' => 'windows'
         )
       end
@@ -165,7 +214,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "program rule with OS: #{os}, ensure: absent" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -178,7 +234,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall delete rule name="Windows Remote Management"  dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip=""',
           'provider' => 'windows'
         )
       end
@@ -188,7 +244,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, ensure => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -215,7 +278,14 @@ describe 'windows_firewall::exception', type: :define do
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
 
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
 
@@ -238,7 +308,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, enabled => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -260,7 +337,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, protocol => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -282,7 +366,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2003 R2', 'Windows Server 2003', 'Windows 8', 'Windows 7', 'Windows Vista', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, local_port => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -309,7 +400,14 @@ describe 'windows_firewall::exception', type: :define do
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
 
       let :facts do
-        { operatingsystemversion: 'Windows Server 2008 R2' }
+        {
+          operatingsystemversion: 'Windows Server 2008 R2',
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
 
@@ -337,7 +435,14 @@ describe 'windows_firewall::exception', type: :define do
         kQmssLmRxKxxtQ1YKithCfinHOQeDpDXxAtcRsHyKCjjDTt8bZREKexMxx2t'
 
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
 
@@ -360,7 +465,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "with invalid custom param: os => #{os}, direction => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -382,7 +494,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, direction => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -404,7 +523,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
     context "with invalid custom param: os => #{os}, action => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -426,7 +552,14 @@ describe 'windows_firewall::exception', type: :define do
   ['Windows Server 2003', 'Windows Server 2003 R2', 'Windows XP'].each do |os|
     context "with invalid custom param: os => #{os}, action => invalid" do
       let :facts do
-        { operatingsystemversion: os }
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
       end
       let(:title) { 'Windows Remote Management' }
       let :params do
