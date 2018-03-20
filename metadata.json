@@ -26,10 +26,6 @@
     {
       "name": "puppetlabs/registry",
       "version_requirement": ">= 1.1.1 < 2.0.0"
-    },
-    {
-      "name": "liamjbennett/win_facts",
-      "version_requirement": ">= 0.0.2 < 2.0.0"
     }
   ],
   "requirements": [
