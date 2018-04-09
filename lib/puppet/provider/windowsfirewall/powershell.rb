@@ -1,21 +1,20 @@
 Puppet::Type.type(:windowsfirewall).provide(:powershell) do
-  confine :operatingsystem => :windows
-  if Facter.value(:kernelmajversion) =~ /^([6-8]\.[2-9]|10\.[0-9])/
+  confine operatingsystem: :windows
+  if Facter.value(:kernelmajversion) =~ %r{^([6-8]\.[2-9]|10\.[0-9])}
 
-    commands :powershell =>
-      if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
-        "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
-      elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
-        "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
-      elsif File.exist?('/usr/bin/powershell')
-        '/usr/bin/powershell'
-      elsif File.exist?('/usr/local/bin/powershell')
-        '/usr/local/bin/powershell'
-      elsif !Puppet::Util::Platform.windows?
-        'powershell'
-      else
-        'powershell.exe'
-      end
+    commands powershell:       if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
+                                 "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
+                               elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
+                                 "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
+                               elsif File.exist?('/usr/bin/powershell')
+                                 '/usr/bin/powershell'
+                               elsif File.exist?('/usr/local/bin/powershell')
+                                 '/usr/local/bin/powershell'
+                               elsif !Puppet::Util::Platform.windows?
+                                 'powershell'
+                               else
+                                 'powershell.exe'
+                               end
 
     desc <<-EOT
       Manages the three Windows Firewall zones ('domain', 'public', and 'private')
@@ -77,9 +76,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
 
     def self.prefetch(resources)
       instances.each do |prov|
-        if resource == resources[prov.name]
-          resource.provider = prov
-        end
+        resource.provider = prov if resource == resources[prov.name]
       end
     end
 

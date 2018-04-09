@@ -7,7 +7,7 @@ describe provider_class do
     subject do
       provider_class.confine_collection.summary[:variable][:operatingsystem]
     end
+
     it { is_expected.to eq ['windows'] }
   end
 end
-
