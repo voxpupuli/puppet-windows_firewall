@@ -58,7 +58,7 @@ windows_firewall::exception { 'WINRM':
   ensure       => present,
   direction    => 'in',
   action       => 'allow',
-  enabled      => 'yes',
+  enabled      => true,
   protocol     => 'TCP',
   local_port   => 5985,
   remote_port  => 'any',
@@ -95,11 +95,11 @@ Sets the direction of the exception rule, either: 'in' or 'out'.
 
 ##### `action`
 
-Sets the action type of the excepton, either: 'allow' or 'block'.
+Sets the action type of the exception, either: 'allow' or 'block'.
 
 ##### `enabled`
 
-Determines whether the exception is enabled, either: 'yes' or 'no'. Defaults to 'yes'.
+Determines whether the exception is enabled, either: 'true' or 'false'. Defaults to 'true'.
 
 ##### `protocol`
 
@@ -107,12 +107,13 @@ Sets the protocol to be included in the exception rule, either: 'TCP' or 'UDP'.
 
 ##### `local_port`
 
-Defines the local port to be included in the exception for port-based exception rules.
+Defines the local port to be included in the exception for port-based exception
+rules, either: an integer between 1 and 65535 or the string 'any'.
 
 ##### `remote_port`
 
 Defines the remote port to be included in the exception for port-based exception
-rules.
+rules, either: an integer between 1 and 65535 or the string 'any'.
 
 ##### `remote_ip`
 
