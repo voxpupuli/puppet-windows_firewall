@@ -4,7 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v2.0.1](https://github.com/voxpupuli/puppet-windows_firewall/tree/v2.0.1) (2018-08-18)
+## [v2.0.2](https://github.com/voxpupuli/puppet-windows_firewall/tree/v2.0.2) (2018-10-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v2.0.1...v2.0.2)
+
+**Closed issues:**
+
+- Update documentation for changed attribute data types [\#79](https://github.com/voxpupuli/puppet-windows_firewall/issues/79)
+
+**Merged pull requests:**
+
+- modulesync 2.2.0 and allow puppet 6.x [\#82](https://github.com/voxpupuli/puppet-windows_firewall/pull/82) ([bastelfreak](https://github.com/bastelfreak))
+- example and param doc update [\#81](https://github.com/voxpupuli/puppet-windows_firewall/pull/81) ([joeypiccola](https://github.com/joeypiccola))
+- allow puppetlabs/stdlib 5.x [\#77](https://github.com/voxpupuli/puppet-windows_firewall/pull/77) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v2.0.1](https://github.com/voxpupuli/puppet-windows_firewall/tree/v2.0.1) (2018-08-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v2.0.0...v2.0.1)
 
@@ -34,7 +48,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- release 2.0.0 [\#59](https://github.com/voxpupuli/puppet-windows_firewall/pull/59) ([bastelfreak](https://github.com/bastelfreak))
 - bump puppet version dependency to \>= 4.7.1 \< 6.0.0 [\#58](https://github.com/voxpupuli/puppet-windows_firewall/pull/58) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v1.1.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v1.1.0) (2017-02-11)
