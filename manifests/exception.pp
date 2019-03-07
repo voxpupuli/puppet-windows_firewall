@@ -105,12 +105,14 @@ define windows_firewall::exception(
   Boolean $allow_edge_traversal = false,
 ) {
 
-  if ($protocol =~ /^ICMPv(4|6)/) and ($remote_port or $local_port) {
-    fail 'Sorry, local and/or remote ports are not needed when protocol is ICMP'
-  }
+  if($protocol){
+    if ($protocol =~ /^ICMPv(4|6)/) and ($remote_port or $local_port) {
+      fail 'Sorry, local and/or remote ports are not needed when protocol is ICMP'
+    }
 
-  if ($protocol == 'UDP') and ($local_port in ['RPC','RPC-EPMap']){
-    fail 'Sorry, RPC and RPC-EPMap local ports require TCP'
+    if ($protocol == 'UDP') and ($local_port in ['RPC','RPC-EPMap']){
+      fail 'Sorry, RPC and RPC-EPMap local ports require TCP'
+    }
   }
 
   #check whether to use 'localport', or just 'port' depending on OS
@@ -134,18 +136,22 @@ define windows_firewall::exception(
   }
 
   if $local_port {
-    $local_port_cmd = "${local_port_param}=${local_port}"
+    $local_port_cmd = "${local_port_param}=\"${local_port}\""
   } else {
     $local_port_cmd = ''
   }
 
   if $remote_port {
-    $remote_port_cmd = "${remote_port_param}=${remote_port}"
+    $remote_port_cmd = "${remote_port_param}=\"${remote_port}\""
   } else {
     $remote_port_cmd = ''
   }
 
-  $protocol_cmd = "protocol=${protocol}"
+  if($protocol){
+    $protocol_cmd = "protocol=${protocol}"
+  }else{
+    $protocol_cmd = undef
+  }
 
   case $::operatingsystemversion {
     'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
@@ -168,6 +174,7 @@ define windows_firewall::exception(
         $fw_command = 'portopening'
         $allow_context = rstrip("${protocol_cmd} ${local_port_cmd}")
         $check_rule_existance= "${netsh_exe} firewall show portopening | find \"${display_name}\""
+        $program_cmd = undef
 
       } else {
         $fw_command = 'allowedprogram'
@@ -176,6 +183,13 @@ define windows_firewall::exception(
         $allow_context = $program_cmd
         $check_rule_existance= "${netsh_exe} firewall show allowedprogram | find \"${display_name}\""
       }
+
+      if $ensure == 'present' {
+        $fw_action = 'add'
+      } else {
+        $fw_action = 'delete'
+      }
+
       $netsh_command = "${netsh_exe} firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
     }
     default: {
@@ -183,8 +197,10 @@ define windows_firewall::exception(
       if $program   {
         $program_cmd = "program=\"${program}\""
         validate_absolute_path($program)
+      }else{
+        $program_cmd = undef
       }
-      $allow_context = rstrip("${program_cmd} ${protocol_cmd} ${local_port_cmd} ${remote_port_cmd}")
+
       $mode = $enabled ? {
         true  => 'yes',
         false => 'no',
@@ -193,28 +209,31 @@ define windows_firewall::exception(
         true  => 'yes',
         false => 'no',
       }
+      if($program_cmd){
+        $allow_context = rstrip("action=${action} enable=${mode} edge=${edge} ${program_cmd} ${protocol_cmd} ${local_port_cmd} ${remote_port_cmd}")
+      }
+      else{
+        $allow_context = rstrip("action=${action} enable=${mode} edge=${edge} ${protocol_cmd} ${local_port_cmd} ${remote_port_cmd}")
+      }
 
       if $ensure != 'present' {
+        $fw_description = ''
         $netsh_command = "${netsh_exe} advfirewall firewall delete rule name=\"${display_name}\""
       } else {
-        $netsh_command = "${netsh_exe} advfirewall firewall add rule name=\"${display_name}\" description=\"${description}\" 
-        dir=\"${direction}\" action=\"${action}\" enable=\"${mode}\" edge=\"${edge}\" ${allow_context} remoteip=\"${remote_ip}\" profile=\"Any\""
+        $fw_description = "description=\"${description}\""
+        $netsh_command = "${netsh_exe} advfirewall firewall add rule name=\"${display_name}\" description=\"${description}\" dir=${direction} ${allow_context} remoteip=\"${remote_ip}\" profile=\"Any\""
       }
     }
   }
 
-  # Use unless for exec if we want the rule to exist, include a description
+
   if $ensure == 'present' {
-    $fw_action = 'add'
     $unless = $check_rule_existance
     $onlyif = undef
-    $fw_description = "description=\"${description}\""
   } else {
-  # Or onlyif if we expect it to be absent; no description argument
-    $fw_action = 'delete'
+
     $onlyif = $check_rule_existance
     $unless = undef
-    $fw_description = ''
   }
 
   exec { "set rule ${display_name}":
