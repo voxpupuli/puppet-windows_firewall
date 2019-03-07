@@ -54,7 +54,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="5985" remoteport="any" remoteip="" profile="Any"',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="5985" remoteport="any" profile="Any"',
           'provider' => 'windows'
         )
       end
@@ -114,7 +114,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" remoteip="" profile="Any"',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no program="C:\\foo.exe" profile="Any"',
           'provider' => 'windows'
         )
       end
@@ -600,7 +600,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="1000-2000,2048" remoteport="any" remoteip="" profile="Any"',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="1000-2000,2048" remoteport="any" profile="Any"',
           'provider' => 'windows'
         )
       end
@@ -629,7 +629,7 @@ describe 'windows_firewall::exception', type: :define do
 
       it do
         is_expected.to contain_exec('set rule Windows Remote Management').with(
-          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="RPC" remoteport="any" remoteip="" profile="Any"',
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="RPC" remoteport="any" profile="Any"',
           'provider' => 'windows'
         )
       end
@@ -688,6 +688,36 @@ describe 'windows_firewall::exception', type: :define do
         expect do
           is_expected.to contain_exec('set rule Windows Remote Management')
         end.to raise_error(Puppet::Error, %r{local and/or remote ports are not needed when protocol is ICMP})
+      end
+    end
+  end
+  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7', 'Windows Vista'].each do |os|
+    context "port rule with OS: #{os}, ensure: present" do
+      let :facts do
+        {
+          operatingsystemversion: os,
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
+      end
+      let(:title) { 'Windows Remote Management' }
+      let :params do
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: true,
+          protocol: 'TCP', local_port: 'RPC', remote_port: 'any',
+          display_name: 'Windows Remote Management', description: 'Inbound rule for WinRM',
+          remote_ip: '10.10.10.10'
+        }
+      end
+
+      it do
+        is_expected.to contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport="RPC" remoteport="any" remoteip="10.10.10.10" profile="Any"',
+          'provider' => 'windows'
+        )
       end
     end
   end

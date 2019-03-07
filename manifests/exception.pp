@@ -209,19 +209,22 @@ define windows_firewall::exception(
         true  => 'yes',
         false => 'no',
       }
-      if($program_cmd){
-        $allow_context = rstrip("action=${action} enable=${mode} edge=${edge} ${program_cmd} ${protocol_cmd} ${local_port_cmd} ${remote_port_cmd}")
+
+      if($remote_ip){
+        $remote_ip_cmd = "remoteip=\"${remote_ip}\""
+      }else{
+        $remote_ip_cmd = undef
       }
-      else{
-        $allow_context = rstrip("action=${action} enable=${mode} edge=${edge} ${protocol_cmd} ${local_port_cmd} ${remote_port_cmd}")
-      }
+
+      $allow_context = regsubst("action=${action} enable=${mode} edge=${edge} ${program_cmd} ${protocol_cmd} ${local_port_cmd} ${remote_port_cmd} ${remote_ip_cmd} profile=\"Any\"",'[\s]{2,}',' ','G')
+
 
       if $ensure != 'present' {
         $fw_description = ''
         $netsh_command = "${netsh_exe} advfirewall firewall delete rule name=\"${display_name}\""
       } else {
         $fw_description = "description=\"${description}\""
-        $netsh_command = "${netsh_exe} advfirewall firewall add rule name=\"${display_name}\" description=\"${description}\" dir=${direction} ${allow_context} remoteip=\"${remote_ip}\" profile=\"Any\""
+        $netsh_command = "${netsh_exe} advfirewall firewall add rule name=\"${display_name}\" description=\"${description}\" dir=${direction} ${allow_context}"
       }
     }
   }
