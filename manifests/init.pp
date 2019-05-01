@@ -8,7 +8,7 @@
 #
 # === Requirements/Dependencies
 #
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# Currently requires the puppetlabs/stdlib module on the Puppet Forge in
 # order to validate much of the the provided configuration.
 #
 # === Parameters
@@ -18,7 +18,7 @@
 #
 # === Examples
 #
-# To ensure that windows_firwall is running:
+# To ensure that windows_firewall is running:
 #
 #   include ::windows_firewall
 #
