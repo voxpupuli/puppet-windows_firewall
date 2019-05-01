@@ -26,14 +26,7 @@ class windows_firewall (
   String $ensure = 'running',
 ) {
 
-  case $::operatingsystemversion {
-    /Windows Server 2003/,/Windows Server 2003 R2/,/Windows XP/: {
-      $firewall_name = 'SharedAccess'
-    }
-    default: {
-      $firewall_name = 'MpsSvc'
-    }
-  }
+  $firewall_name = 'MpsSvc'
 
   if $ensure == 'running' {
     $enabled = true

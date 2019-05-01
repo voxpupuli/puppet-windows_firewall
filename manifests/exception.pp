@@ -93,19 +93,8 @@ define windows_firewall::exception(
 
     # Check if we're allowing a program or port/protocol and validate accordingly
     if $program == undef {
-      #check whether to use 'localport', or just 'port' depending on OS
-      case $::operatingsystemversion {
-        /Windows Server 2003/, /Windows XP/: {
-          $local_port_param = 'port'
-          unless empty($remote_port) {
-            fail "Sorry, :remote_port param is not supported on ${::operatingsystemversion}"
-          }
-        }
-        default: {
-          $local_port_param  = 'localport'
-          $remote_port_param = 'remoteport'
-        }
-      }
+      $local_port_param  = 'localport'
+      $remote_port_param = 'remoteport'
 
       $fw_command = 'portopening'
 
@@ -139,12 +128,7 @@ define windows_firewall::exception(
       validate_absolute_path($program)
     }
 
-    case $::operatingsystemversion {
-      'Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Vista','Windows 7','Windows 8': {
-        validate_slength($description,255)
-      }
-      default: { }
-    }
+    validate_slength($description,255)
 
     # Set command to check for existing rules
     $netsh_exe = "${facts['os']['windows']['system32']}\\netsh.exe"
@@ -164,32 +148,21 @@ define windows_firewall::exception(
       $fw_description = ''
     }
 
-    case $::operatingsystemversion {
-      /Windows Server 2003/, /Windows XP/: {
-        $mode = $enabled ? {
-          true  => 'ENABLE',
-          false => 'DISABLE',
-        }
-        $netsh_command = "${netsh_exe} firewall ${fw_action} ${fw_command} name=\"${display_name}\" mode=${mode} ${allow_context}"
-      }
-      default: {
-        $mode = $enabled ? {
-          true  => 'yes',
-          false => 'no',
-        }
-        $edge = $allow_edge_traversal ? {
-          true  => 'yes',
-          false => 'no',
-        }
-
-        if $fw_action == 'delete' and $program == undef {
-          $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
-        } else {
-          $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
-        }
-      }
+    $mode = $enabled ? {
+      true  => 'yes',
+      false => 'no',
+    }
+    $edge = $allow_edge_traversal ? {
+      true  => 'yes',
+      false => 'no',
     }
 
+    if $fw_action == 'delete' and $program == undef {
+      $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
+    } else {
+      $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
+    }
+    #
     exec { "set rule ${display_name}":
       command  => $netsh_command,
       provider => windows,
