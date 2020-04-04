@@ -46,6 +46,9 @@
 # [*allow_edge_traversal*]
 # Specifies that the traffic for this exception traverses an edge device
 #
+# [*profile*]
+# Specifies that this exception applies only to the selected network profile(s)
+#
 # === Examples
 #
 #  Exception for protocol/port:
@@ -60,6 +63,7 @@
 #     remote_port  => 'any',
 #     remote_ip    => '10.0.0.1,10.0.0.2'
 #     program      => undef,
+#     profile      => 'public'
 #     display_name => 'Windows Remote Management HTTP-In',
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
 #   }
@@ -89,6 +93,7 @@ define windows_firewall::exception(
   String[0, 255] $display_name = '',
   String $description = '',
   Boolean $allow_edge_traversal = false,
+  Optional[Variant[Enum['public', 'private', 'domain'], Array[Enum['public', 'private', 'domain']]]] $profile = ['private', 'public', 'domain'],
 ) {
 
     # Check if we're allowing a program or port/protocol and validate accordingly
@@ -102,6 +107,10 @@ define windows_firewall::exception(
         unless $protocol {
           fail 'Sorry, protocol is required, when defining local or remote port'
         }
+      }
+
+      if $profile {
+        $profile_list = join($profile,",")
       }
 
       if $protocol =~ /^ICMPv(4|6)/ {
@@ -160,7 +169,7 @@ define windows_firewall::exception(
     if $fw_action == 'delete' and $program == undef {
       $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
     } else {
-      $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
+      $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\" profile=\"${profile_list}\""
     }
     #
     exec { "set rule ${display_name}":
