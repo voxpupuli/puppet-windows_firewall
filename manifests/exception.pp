@@ -110,7 +110,7 @@ define windows_firewall::exception(
       }
 
       if $profile {
-        $profile_list = join($profile,",")
+        $profile_list = join($profile,',')
       }
 
       if $protocol =~ /^ICMPv(4|6)/ {
