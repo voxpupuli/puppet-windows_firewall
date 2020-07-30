@@ -25,7 +25,6 @@
 class windows_firewall (
   String $ensure = 'running',
 ) {
-
   $firewall_name = 'MpsSvc'
 
   if $ensure == 'running' {
