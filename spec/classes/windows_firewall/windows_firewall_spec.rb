@@ -88,7 +88,7 @@ describe 'windows_firewall', type: :class do
     it do
       expect do
         is_expected.to contain_registry_value('EnableFirewall')
-      end.to raise_error(Puppet::Error, %r{expects a String value})
+      end.to raise_error
     end
   end
 end

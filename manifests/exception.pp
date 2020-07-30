@@ -82,12 +82,12 @@ define windows_firewall::exception (
   Enum['allow', 'block'] $action = 'allow',
   Boolean $enabled = true,
   Optional[Enum['TCP', 'UDP', 'ICMPv4', 'ICMPv6']] $protocol = undef,
-  Optional[Variant[Integer[1, 65535], Enum['any']]] $local_port = undef,
-  Optional[Variant[Integer[1, 65535], Enum['any']]] $remote_port = undef,
+  Optional[Variant[Stdlib::Port, Enum['any']]] $local_port = undef,
+  Optional[Variant[Stdlib::Port, Enum['any']]] $remote_port = undef,
   Optional[String] $remote_ip = undef,
-  Optional[String] $program = undef,
+  Optional[Stdlib::Windowspath] $program = undef,
   String[0, 255] $display_name = '',
-  String $description = '',
+  String[0, 255] $description = '',
   Boolean $allow_edge_traversal = false,
 ) {
   # Check if we're allowing a program or port/protocol and validate accordingly
@@ -124,10 +124,7 @@ define windows_firewall::exception (
   } else {
     $fw_command = 'allowedprogram'
     $allow_context = "program=\"${program}\""
-    validate_absolute_path($program)
   }
-
-  validate_slength($description,255)
 
   # Set command to check for existing rules
   $netsh_exe = "${facts['os']['windows']['system32']}\\netsh.exe"
