@@ -4,7 +4,7 @@
 
 # == Class: windows_firewall
 #
-# Module to manage the windows firewall and it's configured exceptions
+# Module to manage the windows firewall and its configured exceptions
 #
 # === Requirements/Dependencies
 #
@@ -23,7 +23,7 @@
 #   include ::windows_firewall
 #
 class windows_firewall (
-  String $ensure = 'running',
+  Stdlib::Ensure::Service $ensure = 'running',
 ) {
   $firewall_name = 'MpsSvc'
 
