@@ -76,7 +76,8 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
 
     def self.prefetch(resources)
       instances.each do |prov|
-        resource.provider = prov if resource == resources[prov.name]
+        res = resources[prov.name]
+        res.provider = prov if res
       end
     end
 
