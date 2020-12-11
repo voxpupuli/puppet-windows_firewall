@@ -125,12 +125,12 @@ Sets the protocol to be included in the exception rule, either: 'TCP' or 'UDP'.
 ##### `local_port`
 
 Defines the local port to be included in the exception for port-based exception
-rules, either: an integer between 1 and 65535 or the string 'any'.
+rules, either: an integer between 1 and 65535, a port range (two integers separated by a hyphen, a comma separated list of integers, or the string 'any'.
 
 ##### `remote_port`
 
 Defines the remote port to be included in the exception for port-based exception
-rules, either: an integer between 1 and 65535 or the string 'any'.
+rules, either: an integer between 1 and 65535, a port range (two integers separated by a hyphen, a comma separated list of integers, or the string 'any'.
 
 ##### `remote_ip`
 
