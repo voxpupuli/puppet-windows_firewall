@@ -38,7 +38,7 @@
 # Specifies that network packets with matching remote IP port numbers matched by this rule.
 #
 # [*display_name*]
-# Specifies the rule name assigned to the rule that you want to display
+# Specifies the rule name assigned to the rule that you want to display. Defaults to the title of the resource.
 #
 # [*description*]
 # Provides information about the firewall rule.
@@ -86,7 +86,7 @@ define windows_firewall::exception (
   Windows_firewall::Port  $remote_port = undef,
   Optional[String] $remote_ip = undef,
   Optional[Stdlib::Windowspath] $program = undef,
-  String[0, 255] $display_name = '',
+  String[0, 255] $display_name = $title,
   String[0, 255] $description = '',
   Boolean $allow_edge_traversal = false,
 ) {
