@@ -84,6 +84,17 @@ windows_firewall::exception { 'WINRM':
 }
 ```
 
+If you wish to remove a firewall rule, you may do so by specifying the correct
+resource title for your rule, the protocol and display_name.
+
+```
+windows_firewall::exception { 'WINRM':
+  ensure       => 'absent',
+  protocol     => 'TCP',
+  display_name => 'Windows Remote Management HTTP-In',
+}
+```
+
 ## Usage
 
 ### Classes and Defined Types
