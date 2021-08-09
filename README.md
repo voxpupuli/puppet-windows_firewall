@@ -84,7 +84,7 @@ windows_firewall::exception { 'WINRM':
 }
 ```
 
-If you wish to remove a firewall rule, you may do so by specifying the correct 
+If you wish to remove a firewall rule, you may do so by specifying the correct
 resource title for your rule, the protocol and display_name.
 
 ```
