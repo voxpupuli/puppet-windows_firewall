@@ -430,5 +430,4 @@ describe 'windows_firewall::exception', type: :define do
       end
     end
   end
-
 end
