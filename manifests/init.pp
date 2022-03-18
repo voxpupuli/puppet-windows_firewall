@@ -27,7 +27,7 @@
 #
 class windows_firewall (
   Stdlib::Ensure::Service $ensure = 'running',
-  Hash[Optional]  $exceptions     = {},
+  Optional[Hash]  $exceptions     = {},
 ) {
   $firewall_name = 'MpsSvc'
 
