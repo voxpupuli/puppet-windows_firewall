@@ -17,7 +17,7 @@
 # Control the state of the windows firewall application
 #
 # [*exceptions*]
-# Hash of excpetions to be created.
+# Hash of exceptions to be created.
 #
 # === Examples
 #
@@ -66,5 +66,9 @@ class windows_firewall (
     data   => $enabled_data,
   }
 
-  create_resources(windows_firewall::exception, $exceptions)
+  $exceptions.each |$exception, $attributes| {
+    windows_firewall::exception { $exception:
+      * => $attributes,
+    }
+  }
 }
