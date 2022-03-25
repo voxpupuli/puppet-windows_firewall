@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'windows_firewall', type: :class do
@@ -9,7 +11,7 @@ describe 'windows_firewall', type: :class do
 
       it do
         is_expected.to contain_service('windows_firewall').with(
-          'name'   => 'MpsSvc',
+          'name' => 'MpsSvc',
           'ensure' => 'running',
           'enable' => 'true'
         )
@@ -18,28 +20,28 @@ describe 'windows_firewall', type: :class do
       it do
         is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
           'ensure' => 'present',
-          'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
-          'data'   => '1'
+          'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
+          'data' => '1'
         )
       end
+
       it do
         is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
-          'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
-          'data'   => '1'
+          'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
+          'data' => '1'
         )
       end
+
       it do
         is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
-          'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
-          'data'   => '1'
+          'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
+          'data' => '1'
         )
       end
     end
-  end
 
-  ['Windows 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with OS: #{os}, ensure: stopped" do
       let :facts do
         { operatingsystemversion: os }
@@ -50,7 +52,7 @@ describe 'windows_firewall', type: :class do
 
       it do
         is_expected.to contain_service('windows_firewall').with(
-          'name'   => 'MpsSvc',
+          'name' => 'MpsSvc',
           'ensure' => 'stopped',
           'enable' => 'false'
         )
@@ -59,36 +61,26 @@ describe 'windows_firewall', type: :class do
       it do
         is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
           'ensure' => 'present',
-          'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
-          'data'   => '0'
+          'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
+          'data' => '0'
         )
       end
+
       it do
         is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
           'ensure' => 'present',
-          'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
-          'data'   => '0'
+          'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
+          'data' => '0'
         )
       end
+
       it do
         is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
           'ensure' => 'present',
-          'path'   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
-          'data'   => '0'
+          'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
+          'data' => '0'
         )
       end
-    end
-  end
-
-  context 'passing invalid type for param ensure' do
-    let :params do
-      { ensure: %w[not a string] }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_registry_value('EnableFirewall')
-      end.to raise_error
     end
   end
 end
