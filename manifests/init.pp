@@ -16,6 +16,9 @@
 # [*ensure*]
 # Control the state of the windows firewall application
 #
+# [*exceptions*]
+# Hash of exceptions to be created.
+#
 # === Examples
 #
 # To ensure that windows_firwall is running:
@@ -24,6 +27,7 @@
 #
 class windows_firewall (
   Stdlib::Ensure::Service $ensure = 'running',
+  Optional[Hash]  $exceptions     = {},
 ) {
   $firewall_name = 'MpsSvc'
 
@@ -60,5 +64,11 @@ class windows_firewall (
     path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
     type   => 'dword',
     data   => $enabled_data,
+  }
+
+  $exceptions.each |$exception, $attributes| {
+    windows_firewall::exception { $exception:
+      * => $attributes,
+    }
   }
 }
