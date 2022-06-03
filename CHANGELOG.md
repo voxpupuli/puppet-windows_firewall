@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v4.1.0) (2022-06-03)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Integrate with hiera for creation of exceptions [\#127](https://github.com/voxpupuli/puppet-windows_firewall/pull/127) ([bahner](https://github.com/bahner))
+- \(GH-121\) Add support for puppet 7.x [\#122](https://github.com/voxpupuli/puppet-windows_firewall/pull/122) ([TraGicCode](https://github.com/TraGicCode))
+
+**Closed issues:**
+
+- Add support for puppet 7.x [\#121](https://github.com/voxpupuli/puppet-windows_firewall/issues/121)
+
+**Merged pull requests:**
+
+- Dependency and Support Bump [\#129](https://github.com/voxpupuli/puppet-windows_firewall/pull/129) ([trevor-vaughan](https://github.com/trevor-vaughan))
+- Allow stdlib 8.0.0 [\#119](https://github.com/voxpupuli/puppet-windows_firewall/pull/119) ([smortex](https://github.com/smortex))
+- Update README.md to include instruction on how to remove a rule [\#118](https://github.com/voxpupuli/puppet-windows_firewall/pull/118) ([mike406](https://github.com/mike406))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v4.0.0) (2021-03-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v3.0.0...v4.0.0)
