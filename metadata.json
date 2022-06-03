@@ -14,7 +14,10 @@
         "2008",
         "2008 R2",
         "2012",
-        "2012 R2"
+        "2012 R2",
+        "2016",
+        "2019",
+        "2022"
       ]
     }
   ],
@@ -25,13 +28,13 @@
     },
     {
       "name": "puppetlabs/registry",
-      "version_requirement": ">= 1.1.1 < 4.0.0"
+      "version_requirement": ">= 1.1.1 < 5.0.0"
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.1.0 < 8.0.0"
+      "version_requirement": ">= 6.1.0 < 9.0.0"
     }
   ]
 }
