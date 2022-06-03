@@ -64,7 +64,7 @@ Default value: `'running'`
 
 ##### <a name="exceptions"></a>`exceptions`
 
-Data type: `Optional[Hash]`
+Data type: `Hash`
 
 
 
@@ -247,11 +247,11 @@ Default value: `$title`
 
 ##### <a name="description"></a>`description`
 
-Data type: `String[0, 255]`
+Data type: `Optional[String[1, 255]]`
 
 
 
-Default value: `''`
+Default value: ``undef``
 
 ##### <a name="allow_edge_traversal"></a>`allow_edge_traversal`
 
