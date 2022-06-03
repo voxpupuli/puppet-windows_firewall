@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 provider_resource = Puppet::Type.type(:windowsfirewall)
 provider_class = provider_resource.provider(:powershell)

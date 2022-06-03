@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Puppet::Type.newtype(:windowsfirewall) do
   desc 'Puppet type that models Windows Firewall rules'
   ensurable

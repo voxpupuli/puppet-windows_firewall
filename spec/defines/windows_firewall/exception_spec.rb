@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'windows_firewall::exception', type: :define do
@@ -28,9 +30,7 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "program rule with OS: #{os}, ensure: present" do
       let :facts do
         {
@@ -57,9 +57,7 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "port rule with OS: #{os}, ensure: absent" do
       let :facts do
         {
@@ -86,9 +84,7 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "program rule with OS: #{os}, ensure: absent" do
       let :facts do
         {
@@ -115,9 +111,7 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, ensure => invalid" do
       let :facts do
         {
@@ -143,9 +137,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, display_name => >255" do
       long_display_name =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
@@ -177,9 +169,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, enabled => invalid" do
       let :facts do
         {
@@ -205,9 +195,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, protocol => invalid" do
       let :facts do
         {
@@ -233,9 +221,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, local_port => invalid" do
       let :facts do
         {
@@ -261,9 +247,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, description => >255" do
       long_description =
         'kbqsCQPnQKYPOWEUItAj72ldtdGqBBK1etCZycAVsuNNY8fNCF4av4yaDppQ1upex5moV5RHd88rHdG5DegNEYR2b7DI3thTewgP
@@ -295,9 +279,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, direction => invalid" do
       let(:title) { 'Windows Remote Management' }
       let :params do
@@ -314,9 +296,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error)
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "with invalid custom param: os => #{os}, action => invalid" do
       let :facts do
         {
@@ -342,9 +322,7 @@ describe 'windows_firewall::exception', type: :define do
         end.to raise_error(Puppet::Error, %r{expects a match for Enum})
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "port rangle rule with OS: #{os}, ensure: present" do
       let :facts do
         {
@@ -371,9 +349,7 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "csv ports rule with OS: #{os}, ensure: present" do
       let :facts do
         {
@@ -400,9 +376,7 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
-  end
 
-  ['Windows Server 2012', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows 8', 'Windows 7'].each do |os|
     context "resource title rule with OS: #{os}, ensure: present" do
       let :facts do
         {

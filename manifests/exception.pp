@@ -87,7 +87,7 @@ define windows_firewall::exception (
   Optional[String] $remote_ip = undef,
   Optional[Stdlib::Windowspath] $program = undef,
   String[0, 255] $display_name = $title,
-  String[0, 255] $description = '',
+  Optional[String[1, 255]] $description = undef,
   Boolean $allow_edge_traversal = false,
 ) {
   # Check if we're allowing a program or port/protocol and validate accordingly

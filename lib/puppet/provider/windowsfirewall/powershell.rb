@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 Puppet::Type.type(:windowsfirewall).provide(:powershell) do
   confine operatingsystem: :windows
   if Facter.value(:kernelmajversion) =~ %r{^([6-8]\.[2-9]|10\.[0-9])}
 
-    commands powershell:       if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
-                                 "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
-                               elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
-                                 "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
-                               elsif File.exist?('/usr/bin/powershell')
-                                 '/usr/bin/powershell'
-                               elsif File.exist?('/usr/local/bin/powershell')
-                                 '/usr/local/bin/powershell'
-                               elsif !Puppet::Util::Platform.windows?
-                                 'powershell'
-                               else
-                                 'powershell.exe'
-                               end
+    commands powershell: if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
+                           "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
+                         elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
+                           "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
+                         elsif File.exist?('/usr/bin/powershell')
+                           '/usr/bin/powershell'
+                         elsif File.exist?('/usr/local/bin/powershell')
+                           '/usr/local/bin/powershell'
+                         elsif !Puppet::Util::Platform.windows?
+                           'powershell'
+                         else
+                           'powershell.exe'
+                         end
 
     desc <<-EOT
       Manages the three Windows Firewall zones ('domain', 'public', and 'private')
@@ -45,23 +47,23 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
 
     def self.method_map
       {
-        'ensure'                              => 'Enabled',
-        'default_inbound_action'              => 'DefaultInboundAction',
-        'default_outbound_action'             => 'DefaultOutboundAction',
-        'allow_inbound_rules'                 => 'AllowInboundRules',
-        'allow_local_firewall_rules'          => 'AllowLocalFirewallRules',
-        'allow_local_ipsec_rules'             => 'AllowLocalIPsecRules',
-        'allow_user_apps'                     => 'AllowUserApps',
-        'allow_user_ports'                    => 'AllowUserPorts',
+        'ensure' => 'Enabled',
+        'default_inbound_action' => 'DefaultInboundAction',
+        'default_outbound_action' => 'DefaultOutboundAction',
+        'allow_inbound_rules' => 'AllowInboundRules',
+        'allow_local_firewall_rules' => 'AllowLocalFirewallRules',
+        'allow_local_ipsec_rules' => 'AllowLocalIPsecRules',
+        'allow_user_apps' => 'AllowUserApps',
+        'allow_user_ports' => 'AllowUserPorts',
         'allow_unicast_response_to_multicast' => 'AllowUnicastResponseToMulticast',
-        'notify_on_listen'                    => 'NotifyOnListen',
-        'enable_stealth_mode_for_ipsec'       => 'EnableStealthModeForIPsec',
-        'log_file_name'                       => 'LogFileName',
-        'log_max_size_kilobytes'              => 'LogMaxSizeKilobytes',
-        'log_allowed'                         => 'LogAllowed',
-        'log_blocked'                         => 'LogBlocked',
-        'log_ignored'                         => 'LogIgnored',
-        'disabled_interface_aliases'          => 'DisabledInterfaceAliases'
+        'notify_on_listen' => 'NotifyOnListen',
+        'enable_stealth_mode_for_ipsec' => 'EnableStealthModeForIPsec',
+        'log_file_name' => 'LogFileName',
+        'log_max_size_kilobytes' => 'LogMaxSizeKilobytes',
+        'log_allowed' => 'LogAllowed',
+        'log_blocked' => 'LogBlocked',
+        'log_ignored' => 'LogIgnored',
+        'disabled_interface_aliases' => 'DisabledInterfaceAliases'
       }
     end
 
@@ -89,6 +91,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
         key, val      = line.split(':')
         property_name = method_map.key(key.strip)
         next if property_name.nil?
+
         hash_of_properties[property_name.intern] = val.strip.chomp
       end
       hash_of_properties[:name]     = zone
@@ -103,7 +106,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
     end
 
     # Dynamically create setter methods from the method_map above
-    method_map.keys.each do |key|
+    method_map.each_key do |key|
       define_method("#{key}=") do |value|
         @property_flush[key.intern] = value
       end
