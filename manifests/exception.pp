@@ -2,7 +2,7 @@
 # Copyright:: Copyright (c) 2014 Liam Bennett
 # License::   MIT
 
-# == Define: windows_maintenance::exception
+# == Define: windows_firewall::exception
 #
 # This defined type manages exceptions in the windows firewall
 #
@@ -50,7 +50,7 @@
 #
 #  Exception for protocol/port:
 #
-#   windows_maintenance::exception { 'WINRM-HTTP-In-TCP':
+#   windows_firewall::exception { 'WINRM-HTTP-In-TCP':
 #     ensure       => present,
 #     direction    => 'in',
 #     action       => 'allow',
@@ -66,7 +66,7 @@
 #
 #  Exception for program path:
 #
-#   windows_maintenance::exception { 'myapp':
+#   windows_firewall::exception { 'myapp':
 #     ensure       => present,
 #     direction    => 'in',
 #     action       => 'allow',
@@ -76,7 +76,7 @@
 #     description  => 'Inbound rule for My App',
 #   }
 #
-define windows_maintenance::exception (
+define windows_firewall::exception (
   Enum['present', 'absent'] $ensure = 'present',
   Enum['in', 'out'] $direction = 'in',
   Enum['allow', 'block'] $action = 'allow',
