@@ -81,7 +81,7 @@ define windows_firewall::exception (
   Enum['in', 'out'] $direction = 'in',
   Enum['allow', 'block'] $action = 'allow',
   Boolean $enabled = true,
-  Optional[Enum['TCP', 'UDP', 'ICMPv4', 'ICMPv6']] $protocol = undef,
+  Optional[Enum['Any','TCP', 'UDP', 'ICMPv4', 'ICMPv6']] $protocol = undef,
   Windows_firewall::Port  $local_port  = undef,
   Windows_firewall::Port  $remote_port = undef,
   Optional[String] $remote_ip = undef,
