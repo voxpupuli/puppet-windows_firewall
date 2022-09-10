@@ -149,7 +149,7 @@ define windows_firewall::exception (
   # notify { "description ${display_name} check result":
   #   message => "Here's the result: ${check_description_status}",
   # }
-  if ($remote_ip != undef){
+  if ($remote_ip != undef) {
     # Checks if the Remote IP matches the enforcement
     $check_remote_ip_addr_status = "Get-NetFirewallRule -DisplayName \"${display_name}\" | Get-NetFirewallAddressFilter | Where-Object -Property RemoteAddress -contains ${remote_ip} -outvariable content | Out-Null; if ([string]::IsNullOrEmpty($content)) { Remove-NetFirewallRule -DisplayName \"${display_name}\"; exit 1 } else { Write-Host \"It wasn't Null; here's the output: $content!\"; exit 0 }"
     # notify { "Remote IP ${display_name} check result":
@@ -157,7 +157,7 @@ define windows_firewall::exception (
     # }
     $all_checks = [[$check_rule_existance, 'existance check'], [$check_local_port_status, 'local port check'], [$check_remote_port_status, 'remote port check'], [$check_protocol_status, 'protocol check'], [$check_description_status, 'description check'], [$check_remote_ip_addr_status, 'remote ip check']] #lint:ignore:140chars
   }
-  else{
+  else {
     $all_checks = [[$check_rule_existance, 'existance check'], [$check_local_port_status, 'local port check'], [$check_remote_port_status, 'remote port check'], [$check_protocol_status, 'protocol check'], [$check_description_status, 'description check']] #lint:ignore:140chars
   }
 
