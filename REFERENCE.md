@@ -10,7 +10,7 @@
 
 ### Defined types
 
-* [`windows_firewall::exception`](#windows_firewallexception): == Define: windows_firewall::exception  This defined type manages exceptions in the windows firewall  === Requirements/Dependencies  Currentl
+* [`windows_firewall::exception`](#windows_firewall--exception): == Define: windows_firewall::exception  This defined type manages exceptions in the windows firewall  === Requirements/Dependencies  Currentl
 
 ### Resource types
 
@@ -18,7 +18,7 @@
 
 ### Data types
 
-* [`Windows_firewall::Port`](#windows_firewallport)
+* [`Windows_firewall::Port`](#Windows_firewall--Port)
 
 ## Classes
 
@@ -51,10 +51,10 @@ To ensure that windows_firwall is running:
 
 The following parameters are available in the `windows_firewall` class:
 
-* [`ensure`](#ensure)
-* [`exceptions`](#exceptions)
+* [`ensure`](#-windows_firewall--ensure)
+* [`exceptions`](#-windows_firewall--exceptions)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-windows_firewall--ensure"></a>`ensure`
 
 Data type: `Stdlib::Ensure::Service`
 
@@ -62,7 +62,7 @@ Data type: `Stdlib::Ensure::Service`
 
 Default value: `'running'`
 
-##### <a name="exceptions"></a>`exceptions`
+##### <a name="-windows_firewall--exceptions"></a>`exceptions`
 
 Data type: `Hash`
 
@@ -72,7 +72,7 @@ Default value: `{}`
 
 ## Defined types
 
-### <a name="windows_firewallexception"></a>`windows_firewall::exception`
+### <a name="windows_firewall--exception"></a>`windows_firewall::exception`
 
 == Define: windows_firewall::exception
 
@@ -152,20 +152,20 @@ Specifies that the traffic for this exception traverses an edge device
 
 The following parameters are available in the `windows_firewall::exception` defined type:
 
-* [`ensure`](#ensure)
-* [`direction`](#direction)
-* [`action`](#action)
-* [`enabled`](#enabled)
-* [`protocol`](#protocol)
-* [`local_port`](#local_port)
-* [`remote_port`](#remote_port)
-* [`remote_ip`](#remote_ip)
-* [`program`](#program)
-* [`display_name`](#display_name)
-* [`description`](#description)
-* [`allow_edge_traversal`](#allow_edge_traversal)
+* [`ensure`](#-windows_firewall--exception--ensure)
+* [`direction`](#-windows_firewall--exception--direction)
+* [`action`](#-windows_firewall--exception--action)
+* [`enabled`](#-windows_firewall--exception--enabled)
+* [`protocol`](#-windows_firewall--exception--protocol)
+* [`local_port`](#-windows_firewall--exception--local_port)
+* [`remote_port`](#-windows_firewall--exception--remote_port)
+* [`remote_ip`](#-windows_firewall--exception--remote_ip)
+* [`program`](#-windows_firewall--exception--program)
+* [`display_name`](#-windows_firewall--exception--display_name)
+* [`description`](#-windows_firewall--exception--description)
+* [`allow_edge_traversal`](#-windows_firewall--exception--allow_edge_traversal)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-windows_firewall--exception--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -173,7 +173,7 @@ Data type: `Enum['present', 'absent']`
 
 Default value: `'present'`
 
-##### <a name="direction"></a>`direction`
+##### <a name="-windows_firewall--exception--direction"></a>`direction`
 
 Data type: `Enum['in', 'out']`
 
@@ -181,7 +181,7 @@ Data type: `Enum['in', 'out']`
 
 Default value: `'in'`
 
-##### <a name="action"></a>`action`
+##### <a name="-windows_firewall--exception--action"></a>`action`
 
 Data type: `Enum['allow', 'block']`
 
@@ -189,55 +189,55 @@ Data type: `Enum['allow', 'block']`
 
 Default value: `'allow'`
 
-##### <a name="enabled"></a>`enabled`
+##### <a name="-windows_firewall--exception--enabled"></a>`enabled`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="protocol"></a>`protocol`
+##### <a name="-windows_firewall--exception--protocol"></a>`protocol`
 
 Data type: `Optional[Enum['TCP', 'UDP', 'ICMPv4', 'ICMPv6']]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="local_port"></a>`local_port`
-
-Data type: `Windows_firewall::Port`
-
-
-
-Default value: ``undef``
-
-##### <a name="remote_port"></a>`remote_port`
+##### <a name="-windows_firewall--exception--local_port"></a>`local_port`
 
 Data type: `Windows_firewall::Port`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_ip"></a>`remote_ip`
+##### <a name="-windows_firewall--exception--remote_port"></a>`remote_port`
+
+Data type: `Windows_firewall::Port`
+
+
+
+Default value: `undef`
+
+##### <a name="-windows_firewall--exception--remote_ip"></a>`remote_ip`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="program"></a>`program`
+##### <a name="-windows_firewall--exception--program"></a>`program`
 
 Data type: `Optional[Stdlib::Windowspath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="display_name"></a>`display_name`
+##### <a name="-windows_firewall--exception--display_name"></a>`display_name`
 
 Data type: `String[0, 255]`
 
@@ -245,21 +245,21 @@ Data type: `String[0, 255]`
 
 Default value: `$title`
 
-##### <a name="description"></a>`description`
+##### <a name="-windows_firewall--exception--description"></a>`description`
 
 Data type: `Optional[String[1, 255]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="allow_edge_traversal"></a>`allow_edge_traversal`
+##### <a name="-windows_firewall--exception--allow_edge_traversal"></a>`allow_edge_traversal`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
 ## Resource types
 
@@ -347,10 +347,10 @@ Notify on listen
 
 The following parameters are available in the `windowsfirewall` type.
 
-* [`name`](#name)
-* [`provider`](#provider)
+* [`name`](#-windowsfirewall--name)
+* [`provider`](#-windowsfirewall--provider)
 
-##### <a name="name"></a>`name`
+##### <a name="-windowsfirewall--name"></a>`name`
 
 Valid values: `domain`, `public`, `private`
 
@@ -358,20 +358,16 @@ namevar
 
 Windows firewall zones - either 'domain', 'public', or 'private'
 
-##### <a name="provider"></a>`provider`
+##### <a name="-windowsfirewall--provider"></a>`provider`
 
 The specific backend to use for this `windowsfirewall` resource. You will seldom need to specify this --- Puppet will
 usually discover the appropriate provider for your platform.
 
 ## Data types
 
-### <a name="windows_firewallport"></a>`Windows_firewall::Port`
+### <a name="Windows_firewall--Port"></a>`Windows_firewall::Port`
 
 The Windows_firewall::Port data type.
 
-Alias of
-
-```puppet
-Optional[Variant[Stdlib::Port, Enum['any'], Pattern[/\A[1-9]{1}\Z|[1-9]{1}[0-9,-]*[0-9]{1}\Z/]]]
-```
+Alias of `Optional[Variant[Stdlib::Port, Enum['any'], Pattern[/\A[1-9]{1}\Z|[1-9]{1}[0-9,-]*[0-9]{1}\Z/]]]`
 
