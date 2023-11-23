@@ -45,7 +45,7 @@ Hash of exceptions to be created.
 
 To ensure that windows_firwall is running:
 
-  include ::windows_firewall
+  include windows_firewall
 
 #### Parameters
 
