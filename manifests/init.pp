@@ -23,7 +23,7 @@
 #
 # To ensure that windows_firwall is running:
 #
-#   include ::windows_firewall
+#   include windows_firewall
 #
 class windows_firewall (
   Stdlib::Ensure::Service $ensure = 'running',
