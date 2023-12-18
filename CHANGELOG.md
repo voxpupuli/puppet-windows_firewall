@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v5.0.0) (2023-12-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v4.1.0...v5.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 6 support [\#138](https://github.com/voxpupuli/puppet-windows_firewall/pull/138) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add Puppet 8 support [\#142](https://github.com/voxpupuli/puppet-windows_firewall/pull/142) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 9.x [\#141](https://github.com/voxpupuli/puppet-windows_firewall/pull/141) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- windowsfirewall type does not enable profiles on Windows Server 2022 [\#140](https://github.com/voxpupuli/puppet-windows_firewall/issues/140)
+
+**Merged pull requests:**
+
+- Remove legacy top-scope syntax [\#145](https://github.com/voxpupuli/puppet-windows_firewall/pull/145) ([smortex](https://github.com/smortex))
+- Update registry dependency from \< 5 to \< 6 [\#144](https://github.com/voxpupuli/puppet-windows_firewall/pull/144) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v4.1.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v4.1.0) (2022-06-03)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v4.0.0...v4.1.0)
