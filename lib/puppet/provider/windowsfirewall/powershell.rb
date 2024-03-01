@@ -92,7 +92,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
         property_name = method_map.key(key.strip)
         next if property_name.nil?
 
-        hash_of_properties[property_name.intern] = val.strip.chomp
+        hash_of_properties[property_name.intern] = val.strip.chomp.delete('{|}')
       end
       hash_of_properties[:name]     = zone
       hash_of_properties[:ensure]   = hash_of_properties[:ensure] == 'True' ? :present : :absent
