@@ -84,6 +84,17 @@ windows_firewall::exception { 'WINRM':
 }
 ```
 
+If you wish to remove a firewall rule, you may do so by specifying the correct
+resource title for your rule, the protocol and display_name.
+
+```
+windows_firewall::exception { 'WINRM':
+  ensure       => 'absent',
+  protocol     => 'TCP',
+  display_name => 'Windows Remote Management HTTP-In',
+}
+```
+
 ## Usage
 
 ### Classes and Defined Types
@@ -125,12 +136,12 @@ Sets the protocol to be included in the exception rule, either: 'TCP' or 'UDP'.
 ##### `local_port`
 
 Defines the local port to be included in the exception for port-based exception
-rules, either: an integer between 1 and 65535 or the string 'any'.
+rules, either: an integer between 1 and 65535, a port range (two integers separated by a hyphen, a comma separated list of integers, or the string 'any'.
 
 ##### `remote_port`
 
 Defines the remote port to be included in the exception for port-based exception
-rules, either: an integer between 1 and 65535 or the string 'any'.
+rules, either: an integer between 1 and 65535, a port range (two integers separated by a hyphen, a comma separated list of integers, or the string 'any'.
 
 ##### `remote_ip`
 

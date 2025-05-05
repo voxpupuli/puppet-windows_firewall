@@ -4,7 +4,7 @@
 
 # == Class: windows_firewall
 #
-# Module to manage the windows firewall and it's configured exceptions
+# Module to manage the windows firewall and its configured exceptions
 #
 # === Requirements/Dependencies
 #
@@ -16,16 +16,19 @@
 # [*ensure*]
 # Control the state of the windows firewall application
 #
+# [*exceptions*]
+# Hash of exceptions to be created.
+#
 # === Examples
 #
 # To ensure that windows_firwall is running:
 #
-#   include ::windows_firewall
+#   include windows_firewall
 #
 class windows_firewall (
-  String $ensure = 'running',
+  Stdlib::Ensure::Service $ensure = 'running',
+  Hash $exceptions                = {},
 ) {
-
   $firewall_name = 'MpsSvc'
 
   if $ensure == 'running' {
@@ -61,5 +64,11 @@ class windows_firewall (
     path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
     type   => 'dword',
     data   => $enabled_data,
+  }
+
+  $exceptions.each |$exception, $attributes| {
+    windows_firewall::exception { $exception:
+      * => $attributes,
+    }
   }
 }

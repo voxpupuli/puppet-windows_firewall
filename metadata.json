@@ -1,9 +1,9 @@
 {
   "name": "puppet-windows_firewall",
-  "version": "2.0.3-rc0",
+  "version": "5.0.1-rc0",
   "author": "Vox Pupuli",
   "license": "MIT",
-  "summary": "Module that will manage the windows firewall and it's exceptions",
+  "summary": "Module that will manage the windows firewall and its exceptions",
   "source": "https://github.com/voxpupuli/puppet-windows_firewall",
   "project_page": "https://github.com/voxpupuli/puppet-windows_firewall",
   "issues_url": "https://github.com/voxpupuli/puppet-windows_firewall/issues",
@@ -14,24 +14,31 @@
         "2008",
         "2008 R2",
         "2012",
-        "2012 R2"
+        "2012 R2",
+        "2016",
+        "2019",
+        "2022"
       ]
     }
   ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.6.0 < 6.0.0"
+      "version_requirement": ">= 4.25.1 < 10.0.0"
     },
     {
       "name": "puppetlabs/registry",
-      "version_requirement": ">= 1.1.1 < 3.0.0"
+      "version_requirement": ">= 1.1.1 < 6.0.0"
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.5.8 < 7.0.0"
+      "version_requirement": ">= 7.0.0 < 9.0.0"
+    },
+    {
+      "name": "openvox",
+      "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ]
 }
