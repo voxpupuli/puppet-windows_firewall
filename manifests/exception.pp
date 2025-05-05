@@ -162,24 +162,10 @@ define windows_firewall::exception (
     false => 'no',
   }
 
-<<<<<<< HEAD
-    if $fw_action == 'delete' and $program == undef {
-      $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
-    } else {
-      $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\" profile=\"${profile_list}\""
-    }
-    #
-    exec { "set rule ${display_name}":
-      command  => $netsh_command,
-      provider => windows,
-      onlyif   => $onlyif,
-      unless   => $unless,
-    }
-=======
   if $fw_action == 'delete' and $program == undef {
     $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
   } else {
-    $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
+    $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\" profile=\"${profile_list}\""
   }
   #
   exec { "set rule ${display_name}":
@@ -188,5 +174,4 @@ define windows_firewall::exception (
     onlyif   => $onlyif,
     unless   => $unless,
   }
->>>>>>> u/master
 }
