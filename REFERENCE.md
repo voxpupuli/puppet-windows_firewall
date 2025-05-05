@@ -18,7 +18,7 @@
 
 ### Data types
 
-* [`Windows_firewall::Port`](#Windows_firewall--Port)
+* [`Windows_firewall::Port`](#Windows_firewall--Port): The Windows_firewall::Port data type.
 
 ## Classes
 
@@ -118,6 +118,12 @@ Provides information about the firewall rule.
 [*allow_edge_traversal*]
 Specifies that the traffic for this exception traverses an edge device
 
+[*program*]
+Specifies that network packets with a specified program match this rule.
+
+[*profile*]
+Specifies that this exception applies only to the selected network profile(s)
+
 === Examples
 
  Exception for protocol/port:
@@ -132,6 +138,7 @@ Specifies that the traffic for this exception traverses an edge device
     remote_port  => 'any',
     remote_ip    => '10.0.0.1,10.0.0.2'
     program      => undef,
+    profile      => 'public'
     display_name => 'Windows Remote Management HTTP-In',
     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
   }
@@ -157,13 +164,14 @@ The following parameters are available in the `windows_firewall::exception` defi
 * [`action`](#-windows_firewall--exception--action)
 * [`enabled`](#-windows_firewall--exception--enabled)
 * [`protocol`](#-windows_firewall--exception--protocol)
+* [`remote_ip`](#-windows_firewall--exception--remote_ip)
 * [`local_port`](#-windows_firewall--exception--local_port)
 * [`remote_port`](#-windows_firewall--exception--remote_port)
-* [`remote_ip`](#-windows_firewall--exception--remote_ip)
-* [`program`](#-windows_firewall--exception--program)
 * [`display_name`](#-windows_firewall--exception--display_name)
 * [`description`](#-windows_firewall--exception--description)
 * [`allow_edge_traversal`](#-windows_firewall--exception--allow_edge_traversal)
+* [`program`](#-windows_firewall--exception--program)
+* [`profile`](#-windows_firewall--exception--profile)
 
 ##### <a name="-windows_firewall--exception--ensure"></a>`ensure`
 
@@ -205,6 +213,14 @@ Data type: `Optional[Enum['TCP', 'UDP', 'ICMPv4', 'ICMPv6']]`
 
 Default value: `undef`
 
+##### <a name="-windows_firewall--exception--remote_ip"></a>`remote_ip`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `undef`
+
 ##### <a name="-windows_firewall--exception--local_port"></a>`local_port`
 
 Data type: `Windows_firewall::Port`
@@ -216,22 +232,6 @@ Default value: `undef`
 ##### <a name="-windows_firewall--exception--remote_port"></a>`remote_port`
 
 Data type: `Windows_firewall::Port`
-
-
-
-Default value: `undef`
-
-##### <a name="-windows_firewall--exception--remote_ip"></a>`remote_ip`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `undef`
-
-##### <a name="-windows_firewall--exception--program"></a>`program`
-
-Data type: `Optional[Stdlib::Windowspath]`
 
 
 
@@ -260,6 +260,22 @@ Data type: `Boolean`
 
 
 Default value: `false`
+
+##### <a name="-windows_firewall--exception--program"></a>`program`
+
+Data type: `Optional[Stdlib::Windowspath]`
+
+
+
+Default value: `undef`
+
+##### <a name="-windows_firewall--exception--profile"></a>`profile`
+
+Data type: `Optional[Variant[Enum['public', 'private', 'domain'], Array[Enum['public', 'private', 'domain']]]]`
+
+
+
+Default value: `undef`
 
 ## Resource types
 
