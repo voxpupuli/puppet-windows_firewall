@@ -403,5 +403,85 @@ describe 'windows_firewall::exception', type: :define do
         )
       end
     end
+
+    context "profile private rule with OS: #{os}, ensure: present" do
+      let :facts do
+        {
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
+      end
+      let(:title) { 'Windows Remote Management' }
+      let :params do
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: true,
+          protocol: 'TCP', local_port: 5985, remote_port: 'any',
+          description: 'Inbound rule for WinRM', profile: 'private'
+        }
+      end
+
+      it do
+        is_expected.to contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip="" profile="private"',
+          'provider' => 'windows'
+        )
+      end
+    end
+
+    context "profile private,domain rule with OS: #{os}, ensure: present" do
+      let :facts do
+        {
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
+      end
+      let(:title) { 'Windows Remote Management' }
+      let :params do
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: true,
+          protocol: 'TCP', local_port: 5985, remote_port: 'any',
+          description: 'Inbound rule for WinRM', profile: %w[private domain]
+        }
+      end
+
+      it do
+        is_expected.to contain_exec('set rule Windows Remote Management').with(
+          'command' => 'C:\\windows\\system32\\netsh.exe advfirewall firewall add rule name="Windows Remote Management" description="Inbound rule for WinRM" dir=in action=allow enable=yes edge=no protocol=TCP localport=5985 remoteport=any remoteip="" profile="private,domain"',
+          'provider' => 'windows'
+        )
+      end
+    end
+
+    context "with invalid custom param: os => #{os}, profile => invalid" do
+      let :facts do
+        {
+          os: {
+            windows: {
+              system32: 'C:\\windows\\system32'
+            }
+          }
+        }
+      end
+      let(:title) { 'Windows Remote Management' }
+      let :params do
+        {
+          ensure: 'present', direction: 'in', action: 'allow', enabled: true,
+          protocol: 'TCP', local_port: 5985, remote_port: 'any',
+          profile: 'invalid'
+        }
+      end
+
+      it do
+        expect do
+          is_expected.to contain_exec('set rule Windows Remote Management')
+        end.to raise_error(Puppet::Error)
+      end
+    end
   end
 end

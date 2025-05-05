@@ -13,38 +13,57 @@
 #
 # === Parameters
 #
+# @param ensure
 # [*ensure*]
 # Control the existence of a rule
 #
+# @param direction
 # [*direction*]
 # Specifies whether this rule matches inbound or outbound network traffic.
 #
+# @param action
 # [*action*]
 # Specifies what Windows Firewall with Advanced Security does to filter network packets that match the criteria specified in this rule.
 #
+# @param enabled
 # [*enabled*]
 # Specifies whether the rule is currently enabled.
 #
+# @param protocol
 # [*protocol*]
 # Specifies that network packets with a matching IP protocol match this rule.
 #
+# @param remote_ip
 # [*remote_ip*]
 # Specifies remote hosts that can use this rule.
 #
+# @param local_port
 # [*local_port*]
 # Specifies that network packets with matching local IP port numbers matched by this rule.
 #
+# @param remote_port
 # [*remote_port*]
 # Specifies that network packets with matching remote IP port numbers matched by this rule.
 #
+# @param display_name
 # [*display_name*]
 # Specifies the rule name assigned to the rule that you want to display. Defaults to the title of the resource.
 #
+# @param description
 # [*description*]
 # Provides information about the firewall rule.
 #
+# @param allow_edge_traversal
 # [*allow_edge_traversal*]
 # Specifies that the traffic for this exception traverses an edge device
+#
+# @param program
+# [*program*]
+# Specifies that network packets with a specified program match this rule.
+#
+# @param profile
+# [*profile*]
+# Specifies that this exception applies only to the selected network profile(s)
 #
 # === Examples
 #
@@ -60,6 +79,7 @@
 #     remote_port  => 'any',
 #     remote_ip    => '10.0.0.1,10.0.0.2'
 #     program      => undef,
+#     profile      => 'public'
 #     display_name => 'Windows Remote Management HTTP-In',
 #     description  => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
 #   }
@@ -89,6 +109,7 @@ define windows_firewall::exception (
   String[0, 255] $display_name = $title,
   Optional[String[1, 255]] $description = undef,
   Boolean $allow_edge_traversal = false,
+  Optional[Variant[Enum['public', 'private', 'domain'], Array[Enum['public', 'private', 'domain']]]] $profile = undef,
 ) {
   # Check if we're allowing a program or port/protocol and validate accordingly
   if $program == undef {
@@ -126,6 +147,17 @@ define windows_firewall::exception (
     $allow_context = "program=\"${program}\""
   }
 
+  if $profile {
+    if $profile =~ Array {
+      $profile_list = join($profile,',')
+    } else {
+      $profile_list = $profile
+    }
+    $profile_param = " profile=\"${profile_list}\""
+  } else {
+    $profile_param = ''
+  }
+
   # Set command to check for existing rules
   $netsh_exe = "${facts['os']['windows']['system32']}\\netsh.exe"
   $check_rule_existance= "${netsh_exe} advfirewall firewall show rule name=\"${display_name}\""
@@ -156,7 +188,7 @@ define windows_firewall::exception (
   if $fw_action == 'delete' and $program == undef {
     $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} ${allow_context} remoteip=\"${remote_ip}\""
   } else {
-    $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\""
+    $netsh_command = "${netsh_exe} advfirewall firewall ${fw_action} rule name=\"${display_name}\" ${fw_description} dir=${direction} action=${action} enable=${mode} edge=${edge} ${allow_context} remoteip=\"${remote_ip}\"${profile_param}"
   }
   #
   exec { "set rule ${display_name}":

@@ -13,9 +13,11 @@
 #
 # === Parameters
 #
+# @param ensure
 # [*ensure*]
 # Control the state of the windows firewall application
 #
+# @param exceptions
 # [*exceptions*]
 # Hash of exceptions to be created.
 #
