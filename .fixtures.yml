@@ -1,5 +1,6 @@
+---
 fixtures:
   repositories:
-    stdlib:  https://github.com/puppetlabs/puppetlabs-stdlib.git
+    powershell: https://github.com/puppetlabs/puppetlabs-powershell.git
     registry: https://github.com/puppetlabs/puppetlabs-registry.git
-    powershell:  https://github.com/puppetlabs/puppetlabs-powershell.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
