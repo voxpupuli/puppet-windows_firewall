@@ -17,6 +17,27 @@
 # [*ensure*]
 # Control the state of the windows firewall application
 #
+# @param enable_domain_profile
+# [*enable_domain_profile*]
+# Enable the windows firewall "domain" profile
+# Default depends on *ensure* parameter
+#  running => true
+#  stoppend => false
+#
+# @param enable_public_profile
+# [*enable_public_profile*]
+# Enable the windows firewall "public" profile
+# Default depends on *ensure* parameter
+#  running => true
+#  stoppend => false
+#
+# @param enable_standard_profile
+# [*enable_standard_profile*]
+# Enable the windows firewall "standard" profile
+# Default depends on *ensure* parameter
+#  running => true
+#  stoppend => false
+#
 # @param exceptions
 # [*exceptions*]
 # Hash of exceptions to be created.
@@ -28,17 +49,18 @@
 #   include windows_firewall
 #
 class windows_firewall (
-  Stdlib::Ensure::Service $ensure = 'running',
-  Hash $exceptions                = {},
+  Stdlib::Ensure::Service $ensure                  = 'running',
+  Optional[Boolean]       $enable_domain_profile   = undef,
+  Optional[Boolean]       $enable_public_profile   = undef,
+  Optional[Boolean]       $enable_standard_profile = undef,
+  Hash                    $exceptions              = {},
 ) {
   $firewall_name = 'MpsSvc'
 
   if $ensure == 'running' {
     $enabled = true
-    $enabled_data = '1'
   } else {
     $enabled = false
-    $enabled_data = '0'
   }
 
   service { 'windows_firewall':
@@ -51,21 +73,21 @@ class windows_firewall (
     ensure => 'present',
     path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
     type   => 'dword',
-    data   => $enabled_data,
+    data   => bool2num(pick($enable_domain_profile,$enabled)),
   }
 
   registry_value { 'EnableFirewallPublicProfile':
     ensure => 'present',
     path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
     type   => 'dword',
-    data   => $enabled_data,
+    data   => bool2num(pick($enable_public_profile,$enabled)),
   }
 
   registry_value { 'EnableFirewallStandardProfile':
     ensure => 'present',
     path   => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
     type   => 'dword',
-    data   => $enabled_data,
+    data   => bool2num(pick($enable_standard_profile,$enabled)),
   }
 
   $exceptions.each |$exception, $attributes| {

@@ -38,6 +38,24 @@ order to validate much of the the provided configuration.
 [*ensure*]
 Control the state of the windows firewall application
 
+[*enable_domain_profile*]
+Enable the windows firewall "domain" profile
+Default depends on *ensure* parameter
+ running => true
+ stoppend => false
+
+[*enable_public_profile*]
+Enable the windows firewall "public" profile
+Default depends on *ensure* parameter
+ running => true
+ stoppend => false
+
+[*enable_standard_profile*]
+Enable the windows firewall "standard" profile
+Default depends on *ensure* parameter
+ running => true
+ stoppend => false
+
 [*exceptions*]
 Hash of exceptions to be created.
 
@@ -52,6 +70,9 @@ To ensure that windows_firwall is running:
 The following parameters are available in the `windows_firewall` class:
 
 * [`ensure`](#-windows_firewall--ensure)
+* [`enable_domain_profile`](#-windows_firewall--enable_domain_profile)
+* [`enable_public_profile`](#-windows_firewall--enable_public_profile)
+* [`enable_standard_profile`](#-windows_firewall--enable_standard_profile)
 * [`exceptions`](#-windows_firewall--exceptions)
 
 ##### <a name="-windows_firewall--ensure"></a>`ensure`
@@ -61,6 +82,30 @@ Data type: `Stdlib::Ensure::Service`
 
 
 Default value: `'running'`
+
+##### <a name="-windows_firewall--enable_domain_profile"></a>`enable_domain_profile`
+
+Data type: `Optional[Boolean]`
+
+
+
+Default value: `undef`
+
+##### <a name="-windows_firewall--enable_public_profile"></a>`enable_public_profile`
+
+Data type: `Optional[Boolean]`
+
+
+
+Default value: `undef`
+
+##### <a name="-windows_firewall--enable_standard_profile"></a>`enable_standard_profile`
+
+Data type: `Optional[Boolean]`
+
+
+
+Default value: `undef`
 
 ##### <a name="-windows_firewall--exceptions"></a>`exceptions`
 
