@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v6.0.0) (2025-12-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v5.0.0...v6.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#163](https://github.com/voxpupuli/puppet-windows_firewall/pull/163) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- adding options to control state of single firewall profiles [\#167](https://github.com/voxpupuli/puppet-windows_firewall/pull/167) ([dermsd](https://github.com/dermsd))
+- Implemented profile selection [\#159](https://github.com/voxpupuli/puppet-windows_firewall/pull/159) ([wolfaba](https://github.com/wolfaba))
+- metadata.json: Add OpenVox [\#158](https://github.com/voxpupuli/puppet-windows_firewall/pull/158) ([jstraw](https://github.com/jstraw))
+- Implemented profile selection [\#96](https://github.com/voxpupuli/puppet-windows_firewall/pull/96) ([gmiranda](https://github.com/gmiranda))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-windows_firewall/tree/v5.0.0) (2023-12-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-windows_firewall/compare/v4.1.0...v5.0.0)
