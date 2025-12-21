@@ -1,6 +1,6 @@
 # Windows Firewall module for Puppet
 
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-windows_firewall.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-windows_firewall)
+![Build Status](https://github.com/voxpupuli/puppet-windows_firewall/actions/workflows/ci.yml/badge.svg?branch=master)
 [![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-windows_firewall/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-windows_firewall)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/windows_firewall.svg)](https://forge.puppetlabs.com/puppet/windows_firewall)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/windows_firewall.svg)](https://forge.puppetlabs.com/puppet/windows_firewall)
