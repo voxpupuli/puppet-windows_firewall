@@ -32,7 +32,7 @@ Spec.configure do |c|
       end
 
       path = File.expand_path("#{File.dirname(__FILE__)}/../").split('/')
-      name = path[path.length - 1].split('-')[1]
+      name = path[-1].split('-')[1]
 
       copy_module_to(host, source: proj_root, module_name: name)
 

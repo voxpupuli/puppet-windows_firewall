@@ -41,7 +41,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
     mk_resource_methods
 
     def initialize(value = {})
-      super(value)
+      super
       @property_flush = {}
     end
 
@@ -63,7 +63,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
         'log_allowed' => 'LogAllowed',
         'log_blocked' => 'LogBlocked',
         'log_ignored' => 'LogIgnored',
-        'disabled_interface_aliases' => 'DisabledInterfaceAliases'
+        'disabled_interface_aliases' => 'DisabledInterfaceAliases',
       }
     end
 
@@ -95,7 +95,7 @@ Puppet::Type.type(:windowsfirewall).provide(:powershell) do
         hash_of_properties[property_name.intern] = val.strip.chomp
       end
       hash_of_properties[:name]     = zone
-      hash_of_properties[:ensure]   = hash_of_properties[:ensure] == 'True' ? :present : :absent
+      hash_of_properties[:ensure]   = (hash_of_properties[:ensure] == 'True') ? :present : :absent
       hash_of_properties[:provider] = :powershell
       Puppet.debug "Windowsfirewall found this hash of properties on the system: #{hash_of_properties}"
       hash_of_properties
