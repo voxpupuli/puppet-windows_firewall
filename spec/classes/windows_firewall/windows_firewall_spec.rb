@@ -18,7 +18,7 @@ describe 'windows_firewall' do
           is_expected.to contain_service('windows_firewall').with(
             'name' => 'MpsSvc',
             'ensure' => 'running',
-            'enable' => 'true'
+            'enable' => 'true',
           )
         end
 
@@ -26,7 +26,7 @@ describe 'windows_firewall' do
           is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
             'ensure' => 'present',
             'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
-            'data' => '1'
+            'data' => '1',
           )
         end
 
@@ -34,7 +34,7 @@ describe 'windows_firewall' do
           is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
             'ensure' => 'present',
             'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
-            'data' => '1'
+            'data' => '1',
           )
         end
 
@@ -42,7 +42,7 @@ describe 'windows_firewall' do
           is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
             'ensure' => 'present',
             'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
-            'data' => '1'
+            'data' => '1',
           )
         end
       end
@@ -59,7 +59,7 @@ describe 'windows_firewall' do
           is_expected.to contain_service('windows_firewall').with(
             'name' => 'MpsSvc',
             'ensure' => 'stopped',
-            'enable' => 'false'
+            'enable' => 'false',
           )
         end
 
@@ -67,7 +67,7 @@ describe 'windows_firewall' do
           is_expected.to contain_registry_value('EnableFirewallDomainProfile').with(
             'ensure' => 'present',
             'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\EnableFirewall',
-            'data' => '0'
+            'data' => '0',
           )
         end
 
@@ -75,7 +75,7 @@ describe 'windows_firewall' do
           is_expected.to contain_registry_value('EnableFirewallPublicProfile').with(
             'ensure' => 'present',
             'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\EnableFirewall',
-            'data' => '0'
+            'data' => '0',
           )
         end
 
@@ -83,7 +83,7 @@ describe 'windows_firewall' do
           is_expected.to contain_registry_value('EnableFirewallStandardProfile').with(
             'ensure' => 'present',
             'path' => '32:HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\EnableFirewall',
-            'data' => '0'
+            'data' => '0',
           )
         end
       end
