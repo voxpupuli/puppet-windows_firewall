@@ -431,4 +431,3 @@ usually discover the appropriate provider for your platform.
 The Windows_firewall::Port data type.
 
 Alias of `Optional[Variant[Stdlib::Port, Enum['any'], Pattern[/\A[1-9]{1}\Z|[1-9]{1}[0-9,-]*[0-9]{1}\Z/]]]`
-
